@@ -1,0 +1,31 @@
+{
+  "name": "nextjs",
+  "version": "5.0.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "next",
+    "@mui/material": "next",
+    "axios": "^0.21.4",
+    "clsx": "latest",
+    "firebase": "^9.4.0",
+    "joi": "^17.5.0",
+    "next": "latest",
+    "next-svgr": "0.0.2",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "simple-sharer": "^3.0.2",
+    "swiper": "^7.4.1",
+    "universal-cookie": "^4.0.4"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  }
+}

@@ -1,0 +1,36 @@
+body {
+  /* background-color: rgba(201, 199, 199, 0.13) !important; */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.swiper-button-prev {
+  background-image: url(/prev.svg);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+}
+.swiper-button-next {
+  background-image: url(/next.svg);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+}
+.swiper-button-prev::after {
+  display: none;
+  /* color: #1a4d37; */
+}
+.swiper-button-next::after {
+  display: none;
+}
+
+.swiper-pagination-bullet-active {
+  background: #479e7a !important;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
