@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import SwiperCore, { Navigation, Autoplay, Pagination } from "swiper";
-import { Slide1 } from "./elements/Slides";
+import { Slide1, Slide2 } from "./elements/Slides";
 SwiperCore.use([Navigation, Autoplay, Pagination]);
 
 const Slider = () => {
@@ -20,6 +20,10 @@ const Slider = () => {
         ".mySwiper": {
           height: { xs: "70vw", sm: "30vw" },
           position: "relative",
+          bgcolor: "transparent !important",
+        },
+        ".slide": {
+          bgcolor: "transparent !important",
         },
       }}
     >
@@ -48,17 +52,11 @@ const Slider = () => {
             zIndex: 1000,
           }}
         ></Box>
-        <SwiperSlide>
+        <SwiperSlide className="slide">
           <Slide1 />
         </SwiperSlide>
-        <SwiperSlide>
-          <Slide1 />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide1 />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide1 />
+        <SwiperSlide className="slide">
+          <Slide2 />
         </SwiperSlide>
       </Swiper>
     </Box>

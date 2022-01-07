@@ -486,6 +486,7 @@ const Add = () => {
             {actions.map((action) => {
               return (
                 <IconButton
+                  key={action.text}
                   onClick={() =>
                     action.func({
                       url: `https://whodeysell.com.ng${CleanURL(

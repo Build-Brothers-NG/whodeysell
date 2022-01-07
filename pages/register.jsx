@@ -12,6 +12,7 @@ import Link from "next/link";
 import { ValidateReg } from "../src/Validation";
 import { GlobalContext } from "../src/GlobalContext";
 import Axios from "axios";
+import { useRouter } from "next/router";
 const Register = () => {
   const { user, setUser, loads, setLoads } = React.useContext(GlobalContext);
   const defaultError = { message: "", path: "" };
@@ -22,7 +23,7 @@ const Register = () => {
     password: "",
     confirm_password: "",
   });
-
+  const router = useRouter();
   const register = async () => {
     const validate = ValidateReg(details);
     if (validate.error) {
@@ -38,24 +39,32 @@ const Register = () => {
       .then((res) => {
         if (res.data.token) {
           setUser({
+            ...res.data.user,
             authenticated: true,
             token: res.data.token,
-            name: details.name,
-            id: "123456",
           });
           setLoads(false);
+          router.push("/");
           return;
         }
-        if (res.data.message.includes("connect ETIMEDOUT")) {
+        try {
+          if (res.data.message.includes("connect ETIMEDOUT")) {
+            setError({
+              message: "Please make sure you have an internet connection",
+              path: "authError",
+            });
+          } else if (
+            res.data.message.includes("Request failed with status code 422")
+          ) {
+            setError({
+              message: "There is user with this email address.",
+              path: "authError",
+            });
+          }
+        } catch (e) {
           setError({
-            message: "Please make sure you have an internet connection",
-            path: "authError",
-          });
-        } else if (
-          res.data.message.includes("Request failed with status code 422")
-        ) {
-          setError({
-            message: "There is user with this email address.",
+            message:
+              "Sorry!!! We ran into a problem while creating your account. Please try again.",
             path: "authError",
           });
         }

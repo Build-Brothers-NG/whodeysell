@@ -4,7 +4,6 @@ import Item from "../../src/components/swap/Item";
 import SwapLayout from "../../src/components/swap/SwapLayout";
 import Axios from "axios";
 const Index = ({ items }) => {
-  console.log(items);
   return (
     <SwapLayout>
       {items.map((item) => {

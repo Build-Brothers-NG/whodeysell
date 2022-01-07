@@ -6,17 +6,27 @@ import {
   Select,
   InputLabel,
   MenuItem,
+  useTheme,
 } from "@mui/material";
 import Link from "next/link";
 import { Select_ } from "../CustomSelect";
 import AddIcon from "@mui/icons-material/Add";
 import { GlobalContext } from "../../../GlobalContext";
+
 const NavB = () => {
   const locations = ["all", "makurdi", "gboko", "otukpo"];
   const { user, setUser, location, setLocation } =
     React.useContext(GlobalContext);
+  const theme = useTheme();
   return (
-    <Box sx={{ height: "fit-content", bgcolor: "secondary.main", py: "2px" }}>
+    <Box
+      sx={{
+        height: "fit-content",
+        bgcolor:
+          theme.palette.mode === "dark" ? "transparent" : "secondary.main",
+        py: "2px",
+      }}
+    >
       <Container sx={{ display: "flex", alignItems: "center" }}>
         <Box sx={{ flexGrow: 1 }}>
           <Select_

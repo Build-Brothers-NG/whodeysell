@@ -29,6 +29,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NavB from "./NavB";
 import { GlobalContext } from "../../../GlobalContext";
+import { CleanURL } from "simple-sharer";
+import { useRouter } from "next/router";
 const NavMobile = () => {
   const [drawer, openDrawer] = React.useState(false);
   const {
@@ -41,10 +43,28 @@ const NavMobile = () => {
     setSearch,
     makeSearch,
   } = React.useContext(GlobalContext);
+  const router = useRouter();
   const actions = [
-    { icon: <AccountCircleIcon />, text: "Go to profile" },
-    { icon: <AddIcon />, text: "Add New Item" },
-    { icon: <SearchIcon />, text: "Search" },
+    {
+      icon: <AccountCircleIcon />,
+      text: "Go to profile",
+      func: () =>
+        router.push(
+          user.authenticated
+            ? `/user/${CleanURL(`${user.name}/${user.id}`)}`
+            : "/login"
+        ),
+    },
+    {
+      icon: <AddIcon />,
+      text: "Add New Item",
+      func: () => router.push("/add"),
+    },
+    {
+      icon: <SearchIcon />,
+      text: "Search",
+      func: () => router.push("/search"),
+    },
   ];
   return (
     <>
@@ -115,6 +135,7 @@ const NavMobile = () => {
         >
           {actions.map((action) => (
             <SpeedDialAction
+              onClick={action.func}
               key={action.text}
               icon={action.icon}
               tooltipTitle={action.text}
@@ -157,12 +178,22 @@ const NavMobile = () => {
           </List>
           <Divider />
           <List>
-            <ListItem>
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary={user.name} secondary={"Profile"} />
-            </ListItem>
+            <Link
+              href={
+                user.authenticated
+                  ? `/user/${CleanURL(`${user.name}/${user.id}`)}`
+                  : "/login"
+              }
+            >
+              <a>
+                <ListItem>
+                  <ListItemIcon>
+                    <AccountCircleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={user.name} secondary={"Profile"} />
+                </ListItem>
+              </a>
+            </Link>
             <Link href="/add">
               <a>
                 <ListItem>

@@ -25,6 +25,11 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
   const logOut = () => {
     setUser(def);
     delCookie("wds_user");
+    setTimeout(() => {
+      if (getCookie("wds_user")) {
+        delCookie("wds_user");
+      }
+    }, 1000);
   };
   const makeSearch = () => {
     if (search.trim().length !== 0) {

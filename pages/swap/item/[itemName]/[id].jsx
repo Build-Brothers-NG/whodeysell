@@ -12,9 +12,9 @@ import {
   Backdrop,
   Snackbar,
 } from "@mui/material";
+import PhoneIcon from "@mui/icons-material/Phone";
 import Axios from "axios";
 import Link from "next/link";
-import Suggestion from "../../../src/components/Suggestion";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -26,7 +26,6 @@ import LinkIcon from "@mui/icons-material/Link";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import CloseIcon from "@mui/icons-material/CloseSharp";
 import {
-  simplesharer,
   Facebook,
   Twitter,
   Reddit,
@@ -34,46 +33,14 @@ import {
   Copy,
   CleanURL,
 } from "simple-sharer";
-import { getCookie } from "../../../src/useCookie";
-import { GlobalContext } from "../../../src/GlobalContext";
-const Detail = (props) => {
+import { getCookie } from "../../../../src/useCookie";
+import { GlobalContext } from "../../../../src/GlobalContext";
+const Detail = ({ item: { item } }) => {
   const router = useRouter();
-  const { item, suggestions } = props.item;
   const { user } = React.useContext(GlobalContext);
   const [time, setTime] = React.useState();
-  const [votes, setVotes] = React.useState({
-    votes: item.votes,
-    hasVoted: item.hasVoted,
-  });
   const [showImage, setShowImage] = React.useState(false);
   const [snack, setSnack] = React.useState(false);
-  const vote = async () => {
-    if (user.authenticated) {
-      if (item.hasVoted) {
-        await Axios.post("/vote/down", {
-          token: getCookie("wds_user").token,
-          id: item.id,
-        }).then((res) => {
-          setVotes({
-            votes: res.data.item.votes,
-            hasVoted: res.data.item.hasVoted,
-          });
-        });
-        return;
-      }
-      await Axios.post("/vote/up", {
-        token: getCookie("wds_user").token,
-        id: item.id,
-      }).then((res) => {
-        setVotes({
-          votes: res.data.item.votes,
-          hasVoted: res.data.item.hasVoted,
-        });
-      });
-    } else {
-      setSnack(true);
-    }
-  };
   const actions = [
     { icon: <FacebookIcon />, text: "Share on Facebook", func: Facebook },
     { icon: <TwitterIcon />, text: "Share on Twitter", func: Twitter },
@@ -116,12 +83,12 @@ const Detail = (props) => {
     <>
       <Head>
         <title>
-          {`${item.itemName} in ${item.city} at ${item.purchase_location}`} |
-          Whodeysell
+          {`${item.itemName} in ${item.city} for swap |
+          Whodeysell`}
         </title>
         <meta
           name="description"
-          content={`Price of ${item.itemName} in ${item.city}, ${item.item_description}`}
+          content={`${item.itemName} For swap in ${item.city}, ${item.itemDescription}`}
         />
         <meta
           property="og:url"
@@ -130,11 +97,11 @@ const Detail = (props) => {
         <meta property="og:type" content="product" />
         <meta
           property="og:title"
-          content={`${item.itemName} in ${item.city} at ${item.purchase_location}`}
+          content={`${item.itemName} in ${item.city}`}
         />
         <meta
           property="og:description"
-          content={`Price of ${item.itemName} in ${item.city}, ${item.item_description}`}
+          content={`${item.itemName} For swap in ${item.city}, ${item.itemDescription}`}
         />
         <meta
           property="og:image"
@@ -227,9 +194,8 @@ const Detail = (props) => {
                 }}
               >
                 <Button
-                  onClick={() => vote()}
                   disableElevation
-                  variant={votes.hasVoted ? "contained" : "outlined"}
+                  variant="outlined"
                   sx={{
                     borderRadius: "40px",
                     mr: 2,
@@ -238,7 +204,7 @@ const Detail = (props) => {
                     height: "fit-content",
                   }}
                 >
-                  Kudos {votes.votes}
+                  {item.hits} Seen this.
                 </Button>
                 <SpeedDial
                   ariaLabel="SpeedDial basic example"
@@ -278,14 +244,20 @@ const Detail = (props) => {
                   Price
                 </Typography>
                 <Typography variant="h6">
-                  ₦{item.item_price.toLocaleString()}
+                  {item.item_price == 0 ? (
+                    "Free"
+                  ) : (
+                    <>₦{item.item_price.toLocaleString()}</>
+                  )}
                 </Typography>
-                <Typography variant="span" color="secondary">
-                  Quantity - Unit
+                <Typography
+                  variant="span"
+                  color="secondary"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  Contact <PhoneIcon color="primary" />
                 </Typography>
-                <Typography variant="h6">
-                  {item.item_quantity} - {item.q_unit}
-                </Typography>
+                <Typography variant="h6">{item.phone_number}</Typography>
                 <Typography variant="span" color="secondary">
                   City
                   <Box component="img" src="/map.svg" sx={{ width: "20px" }} />
@@ -295,19 +267,14 @@ const Detail = (props) => {
                     item.city.substring(1, item.city.length)}
                 </Typography>
                 <Typography variant="span" color="secondary">
-                  Location{" "}
-                  <Box component="img" src="/map.svg" sx={{ width: "20px" }} />
-                </Typography>
-                <Typography variant="h6">{item.purchase_location}</Typography>
-                <Typography variant="span" color="secondary">
                   Description
                 </Typography>
-                <Typography variant="h6">{item.item_description}</Typography>
+                <Typography variant="h6">{item.itemDescription}</Typography>
               </Stack>
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Suggestion items={suggestions} />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
         <Backdrop
@@ -366,7 +333,7 @@ export async function getServerSideProps({ params, req }) {
     };
   }
   const res = await Axios.post(
-    `https://buildbrothers.com/enenu/api/item/${params.id}`
+    `https://buildbrothers.com/enenu/api/swap/item/${params.id}`
   );
   return {
     props: { item: res.data },

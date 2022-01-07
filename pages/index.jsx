@@ -21,7 +21,7 @@ export default function Index({ data, all }) {
 
   return (
     <>
-      <Box sx={{ bgcolor: "white !important" }}>
+      <Box sx={{ bgcolor: "background.default" }}>
         <Slider />
       </Box>
       <Container sx={{ my: 2, px: { xs: "5px" } }}>
@@ -58,18 +58,24 @@ export default function Index({ data, all }) {
 }
 
 export async function getServerSideProps(context) {
-  let location = context.req.cookies.wds_location || "";
-  location = location
-    ? JSON.parse(context.req.cookies.wds_location).location
-    : location;
-  location = location === "all" ? "" : location;
-  const res = await Axios.post(
-    `https://buildbrothers.com/enenu/api/items?city=${location}`
-  );
-  const all = await Axios.get(
-    `https://buildbrothers.com/enenu/api/search?api=true&city=${location}`
-  );
-  return {
-    props: { data: res.data, all: all.data }, // will be passed to the page component as props
-  };
+  try {
+    let location = context.req.cookies.wds_location || "";
+    location = location
+      ? JSON.parse(context.req.cookies.wds_location).location
+      : location;
+    location = location === "all" ? "" : location;
+    const res = await Axios.post(
+      `https://buildbrothers.com/enenu/api/items?city=${location}`
+    );
+    const all = await Axios.get(
+      `https://buildbrothers.com/enenu/api/search?api=true&city=${location}`
+    );
+    return {
+      props: { data: res.data, all: all.data }, // will be passed to the page component as props
+    };
+  } catch (e) {
+    return {
+      props: { data: { items: [], recent: [] }, all: { items: [] } },
+    };
+  }
 }

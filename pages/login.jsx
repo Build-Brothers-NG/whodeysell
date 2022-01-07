@@ -36,10 +36,9 @@ const Login = () => {
       .then((res) => {
         if (res.data.token) {
           setUser({
+            ...res.data.user,
             authenticated: true,
             token: res.data.token,
-            name: "Moses Arome",
-            id: "123456",
           });
           setLoads(false);
           router.push(`/${router.query.from || ""}`);

@@ -39,3 +39,20 @@ export const ValidateItem = (data) => {
   });
   return schema.validate(data);
 };
+
+export const ValidateSwapItem = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    amount: Joi.string().required(),
+    city: Joi.string().required(),
+    state: Joi.string().required(),
+    description: Joi.string().min(5).required(),
+    phone: Joi.string().required(),
+    email: Joi.string()
+      .required()
+      .email({ tlds: { allow: false } }),
+    categories: Joi.array().min(1).required(),
+    photo: Joi.any(),
+  });
+  return schema.validate(data);
+};

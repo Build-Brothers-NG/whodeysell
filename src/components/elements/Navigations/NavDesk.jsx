@@ -13,7 +13,6 @@ import {
   Button,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SearchIcon from "@mui/icons-material/Search";
@@ -25,6 +24,7 @@ import NavB from "./NavB";
 import { GlobalContext } from "../../../GlobalContext";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { CleanURL } from "simple-sharer";
 
 const NavDesk = () => {
   const {
@@ -105,9 +105,13 @@ const NavDesk = () => {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem>
-                    <AccountCircleIcon /> Profile
-                  </MenuItem>
+                  <Link href={`/user/${CleanURL(`${user.name}/${user.id}`)}`}>
+                    <a>
+                      <MenuItem>
+                        <AccountCircleIcon /> Profile
+                      </MenuItem>
+                    </a>
+                  </Link>
                   <Link href="/add">
                     <a>
                       <MenuItem>

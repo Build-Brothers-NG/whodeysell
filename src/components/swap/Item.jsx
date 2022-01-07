@@ -5,7 +5,7 @@ import { CleanURL } from "simple-sharer";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 const Item = ({ item }) => {
   return (
-    <Link href={CleanURL(`/item/${item.itemName}/${item.id}`)}>
+    <Link href={CleanURL(`/swap/item/${item.itemName}/${item.id}`)}>
       <a>
         <Card sx={{ width: "100%" }}>
           <CardMedia
