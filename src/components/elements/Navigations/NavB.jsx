@@ -1,18 +1,15 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Breadcrumbs,
-  Select,
-  InputLabel,
-  MenuItem,
-  useTheme,
-} from "@mui/material";
+import { useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import MenuItem from "@mui/material/MenuItem";
+import MapIcon from "../../icons/MapIcon";
 import Link from "next/link";
 import { Select_ } from "../CustomSelect";
 import AddIcon from "@mui/icons-material/Add";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { GlobalContext } from "../../../GlobalContext";
-
 const NavB = () => {
   const locations = ["all", "makurdi", "gboko", "otukpo"];
   const { user, setUser, location, setLocation } =
@@ -28,7 +25,8 @@ const NavB = () => {
       }}
     >
       <Container sx={{ display: "flex", alignItems: "center" }}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+          <MapIcon sx={{ color: "white.main" }} />
           <Select_
             labelId="label"
             id="select"
@@ -40,7 +38,9 @@ const NavB = () => {
             {locations.map((local) => {
               return (
                 <MenuItem key={local} value={local}>
-                  {local[0].toUpperCase() + local.substring(1, local.length)}
+                  {local === "all"
+                    ? "All Cities"
+                    : local[0].toUpperCase() + local.substring(1, local.length)}
                 </MenuItem>
               );
             })}
@@ -63,7 +63,10 @@ const NavB = () => {
             </a>
           </Link>
           <Link href="/swap">
-            <a>Swapt It</a>
+            <a>
+              <SwapVertIcon />
+              Swapt-It
+            </a>
           </Link>
         </Breadcrumbs>
       </Container>

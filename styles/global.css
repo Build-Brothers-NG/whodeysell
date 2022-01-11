@@ -1,10 +1,10 @@
-body {
-  /* background-color: rgba(201, 199, 199, 0.13) !important; */
-}
-
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.detail-image {
+  border-radius: 10px;
 }
 
 .swiper-button-prev {
@@ -21,7 +21,6 @@ a {
 }
 .swiper-button-prev::after {
   display: none;
-  /* color: #1a4d37; */
 }
 .swiper-button-next::after {
   display: none;

@@ -1,15 +1,15 @@
 import React from "react";
 import Axios from "axios";
-import {
-  Grid,
-  Container,
-  Box,
-  Stack,
-  IconButton,
-  Button,
-  Avatar,
-  Typography,
-} from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+
 import Item from "../../../src/components/Item";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";

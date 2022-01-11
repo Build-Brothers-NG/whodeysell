@@ -1,24 +1,24 @@
 import React from "react";
-import {
-  Box,
-  Grid,
-  Container,
-  TextField,
-  Typography,
-  Button,
-  MenuItem,
-  Select,
-  Autocomplete,
-  Checkbox,
-  ListItemText,
-  Avatar,
-  Alert,
-  FormHelperText,
-  Modal,
-  Paper,
-  IconButton,
-  Stack,
-} from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Autocomplete from "@mui/material/Autocomplete";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
+import FormHelperText from "@mui/material/FormHelperText";
+
 import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
 import { ValidateItem } from "../src/Validation";
@@ -33,12 +33,6 @@ import Axios from "axios";
 import { getCookie } from "../src/useCookie";
 import { useRouter } from "next/router";
 import { GlobalContext } from "../src/GlobalContext";
-import ShareIcon from "@mui/icons-material/Share";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import RedditIcon from "@mui/icons-material/Reddit";
-import LinkIcon from "@mui/icons-material/Link";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import {
   simplesharer,
   Facebook,
@@ -48,7 +42,12 @@ import {
   Copy,
   CleanURL,
 } from "simple-sharer";
-
+import dynamic from "next/dynamic";
+const FacebookIcon = dynamic(() => import("@mui/icons-material/Facebook"));
+const TwitterIcon = dynamic(() => import("@mui/icons-material/Twitter"));
+const RedditIcon = dynamic(() => import("@mui/icons-material/Reddit"));
+const LinkIcon = dynamic(() => import("@mui/icons-material/Link"));
+const WhatsAppIcon = dynamic(() => import("@mui/icons-material/WhatsApp"));
 const categories = [
   "food stuffs",
   "fruits",

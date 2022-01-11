@@ -10,6 +10,17 @@ const All = ({ items }) => {
             All Items
           </Typography>
         </Grid>
+        {items.length === 0 && (
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              color="secondary"
+              sx={{ my: "5px", textAlign: "center" }}
+            >
+              No items from this location
+            </Typography>
+          </Grid>
+        )}
         {items.map((item, index) => {
           return (
             <Grid key={item.id} item xs={6} sm={4} md={3}>

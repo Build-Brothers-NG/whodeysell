@@ -1,7 +1,10 @@
 import React from "react";
-import { Container, Box, Typography } from "@mui/material";
+
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
-const NotFound = () => {
+const PageNotFound = () => {
   return (
     <Container maxWidth="md">
       <Box
@@ -13,7 +16,11 @@ const NotFound = () => {
           my: 4,
         }}
       >
-        <Box component="img" src="/404.svg" />
+        <Box
+          component="img"
+          src="/404.svg"
+          sx={{ width: "60%", height: "auto" }}
+        />
         <Typography variant="p" sx={{ textAlign: "center", my: 2 }}>
           This page was not found
         </Typography>
@@ -30,4 +37,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default PageNotFound;

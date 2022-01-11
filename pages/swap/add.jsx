@@ -1,21 +1,21 @@
 import React from "react";
-import {
-  Box,
-  Grid,
-  Container,
-  TextField,
-  Typography,
-  Button,
-  MenuItem,
-  Select,
-  Autocomplete,
-  Checkbox,
-  ListItemText,
-  Avatar,
-  Modal,
-  IconButton,
-  Stack,
-} from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Autocomplete from "@mui/material/Autocomplete";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import { auth } from "../../utils/firebase";
 import Link from "next/link";
 import { ValidateSwapItem } from "../../src/Validation";
 import {
@@ -24,17 +24,10 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { auth } from "../../utils/firebase";
 import Axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
 import SwapLayout from "../../src/components/swap/SwapLayout";
 import { GlobalContext } from "../../src/GlobalContext";
-import ShareIcon from "@mui/icons-material/Share";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import RedditIcon from "@mui/icons-material/Reddit";
-import LinkIcon from "@mui/icons-material/Link";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import {
   Facebook,
   Twitter,
@@ -44,6 +37,13 @@ import {
   CleanURL,
 } from "simple-sharer";
 import { getCookie } from "../../src/useCookie";
+import dynamic from "next/dynamic";
+const FacebookIcon = dynamic(() => import("@mui/icons-material/Facebook"));
+const TwitterIcon = dynamic(() => import("@mui/icons-material/Twitter"));
+const RedditIcon = dynamic(() => import("@mui/icons-material/Reddit"));
+const LinkIcon = dynamic(() => import("@mui/icons-material/Link"));
+const WhatsAppIcon = dynamic(() => import("@mui/icons-material/WhatsApp"));
+
 const categories = [
   "food stuffs",
   "fruits",
@@ -53,43 +53,7 @@ const categories = [
   "laptops",
   "farm produce",
 ];
-const units = [
-  "Mudu",
-  "Tiya",
-  "Milk Tin",
-  "Bag",
-  "Small Bag",
-  "Medium Bag",
-  "Large Bag",
-  "Kobiowu",
-  "Groundnut Tin",
-  "Tuber",
-  "Heap",
-  "Piece",
-  "Wheel Barrow",
-  "Basin",
-  "Small Basket",
-  "Medium Basket",
-  "Large Basket",
-  "Kongo",
-  "Rubber Raint",
-  "Bunch",
-  "Head",
-  "Cup",
-  "Rubber",
-  "Liters (L)",
-  "Pounds",
-  "Meters",
-  "Muzu",
-  "Centi Meters (CM)",
-  "Milli Liters (ML)",
-  "Milli Meters (ML)",
-  "Centi Liters (ML)",
-  "Inches (Inch)",
-  "Kilo Gram (KG)",
-  "Crate",
-  "Pair",
-];
+
 const states = [
   "Abia",
   "Adamawa",
@@ -203,8 +167,8 @@ const Add = () => {
           getDownloadURL(uploadImg.snapshot.ref).then(async (url) => {
             const temp = { ...item };
             temp.photo = url;
+            temp.amount = "0";
             // temp.city = [item.city, item.state];
-            delete temp.photo;
             delete temp.state;
             delete temp.categories;
             delete temp.email;
@@ -213,6 +177,7 @@ const Add = () => {
               value: temp,
             })
               .then((res) => {
+                console.log(res);
                 setLoads(false);
                 setItem(defItem);
                 setOpen({ name: res.data.item.itemName, id: res.data.item.id });
@@ -227,7 +192,7 @@ const Add = () => {
     } else {
       const temp = { ...item };
       // temp.city = [item.city, item.state];
-      delete temp.photo;
+      // delete temp.photo;
       delete temp.state;
       delete temp.categories;
       delete temp.email;
@@ -262,16 +227,30 @@ const Add = () => {
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField
-          error={error.path === "amount"}
-          helperText={error.path === "amount" && error.message}
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
           value={item.amount}
-          onChange={(e) => setItem({ ...item, amount: e.target.value })}
-          label="Item Price"
-          placeholder="For how much did you get this item?"
+          displayEmpty
           variant="filled"
           fullWidth
-        />
+          label="Swap Mode"
+          renderValue={(selected) => {
+            if (selected === "") {
+              return <>Select Swap Mode</>;
+            }
+            return selected;
+          }}
+          MenuProps={MenuProps}
+          onChange={(e) => setItem({ ...item, amount: e.target.value })}
+        >
+          <MenuItem disabled value="">
+            <em>Select Swap Mode</em>
+          </MenuItem>
+          {["Free", "Item + Money", "Money"].map((state) => {
+            return <MenuItem value={state}>{state}</MenuItem>;
+          })}
+        </Select>
       </Grid>
       <Grid item xs={6}>
         <Autocomplete

@@ -1,10 +1,18 @@
 import React from "react";
-import { Box, Typography, Grid, Container, Button } from "@mui/material";
+import Image from "next/image";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { useTheme } from "@mui/material";
+
 import Link from "next/link";
 export const Slide1 = () => {
+  const theme = useTheme();
   return (
     <Container sx={{ px: { xs: 0 }, bgcolor: "transparent !important" }}>
-      <Box sx={{ width: "100%", height: "500px" }}>
+      <Box sx={{ width: "100%", height: "fit-content" }}>
         <Grid container spacing={1} alignItems="center" justifyContent="center">
           <Box
             component={Grid}
@@ -27,6 +35,23 @@ export const Slide1 = () => {
               This is Who Dey Sell (WDS) WDS is a people driven marketplace -
               find stuff near you starting with knowing how much it costs
             </Typography>
+            <Link href="/add">
+              <a>
+                <Button
+                  disableElevation
+                  variant={
+                    theme.palette.mode === "dark" ? "outlined" : "contained"
+                  }
+                  sx={{
+                    borderRadius: "40px",
+                    width: "fit-content",
+                    m: "auto",
+                  }}
+                >
+                  Add An Item
+                </Button>
+              </a>
+            </Link>
           </Box>
           <Box
             component={Grid}
@@ -41,7 +66,7 @@ export const Slide1 = () => {
             <Box
               component="img"
               src="/slide1.svg"
-              sx={{ width: "100%", my: 3 }}
+              sx={{ width: "100%", my: { xs: 0, md: 3 } }}
             />
           </Box>
           <Box
@@ -66,6 +91,8 @@ export const Slide1 = () => {
                 alignItems: "center",
                 color: "white !important",
                 pl: "5px",
+                zIndex: 1000,
+                px: 2,
               }}
             >
               <Typography variant="h5">Welcome to Whodeysell (WDS)</Typography>
@@ -73,8 +100,32 @@ export const Slide1 = () => {
                 This is Who Dey Sell (WDS) WDS is a people driven marketplace -
                 find stuff near you starting with knowing how much it costs
               </Typography>
+              <Link href="/add">
+                <a>
+                  <Button
+                    disableElevation
+                    variant="contained"
+                    sx={{
+                      borderRadius: "40px",
+                      width: "fit-content",
+                      m: "auto",
+                    }}
+                  >
+                    Add An Item
+                  </Button>
+                </a>
+              </Link>
             </Box>
-            <Box component="img" src="/slide1.png" sx={{ width: "100%" }} />
+            <Box
+              sx={{
+                width: "100%",
+                height: { xs: "70vw", sm: "50vw", md: "30vw" },
+                position: "relative",
+                bgcolor: "white.main",
+              }}
+            >
+              <Image src={"/slide1.svg"} layout="fill" objectFit="cover" />
+            </Box>
           </Box>
         </Grid>
       </Box>
@@ -83,6 +134,7 @@ export const Slide1 = () => {
 };
 
 export const Slide2 = () => {
+  const theme = useTheme();
   return (
     <Container sx={{ px: { xs: 0 }, bgcolor: "transparent !important" }}>
       <Box sx={{ width: "100%", height: "500px" }}>
@@ -114,7 +166,9 @@ export const Slide2 = () => {
             <Link href="/swap">
               <a>
                 <Button
-                  variant="outlined"
+                  variant={
+                    theme.palette.mode === "dark" ? "outlined" : "contained"
+                  }
                   color="primary"
                   sx={{
                     borderRadius: "40px",
@@ -166,6 +220,8 @@ export const Slide2 = () => {
                 alignItems: "center",
                 color: "white !important",
                 pl: "5px",
+                zIndex: 1000,
+                px: 2,
               }}
             >
               <Typography variant="h5">Swap Your items</Typography>
@@ -190,12 +246,15 @@ export const Slide2 = () => {
                 </a>
               </Link>
             </Box>
-            <Box sx={{ bgcolor: "white.main" }}>
-              <Box
-                component="img"
-                src="/swapslide.svg"
-                sx={{ width: "100%" }}
-              />
+            <Box
+              sx={{
+                width: "100%",
+                height: { xs: "70vw", sm: "50vw", md: "30vw" },
+                position: "relative",
+                bgcolor: "white.main",
+              }}
+            >
+              <Image src="/swapslide.svg" layout="fill" objectFit="cover" />
             </Box>
           </Box>
         </Grid>

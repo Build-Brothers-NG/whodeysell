@@ -1,13 +1,11 @@
 import React from "react";
-import {
-  Box,
-  Grid,
-  Container,
-  TextField,
-  Typography,
-  Button,
-  Alert,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 import { ValidateLogin } from "../src/Validation";
 import Link from "next/link";
 import Axios from "axios";

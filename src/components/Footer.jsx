@@ -13,9 +13,9 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YoutubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import PinDropIcon from "@mui/icons-material/PinDrop";
 import EmailIcon from "@mui/icons-material/MailOutline";
 import PhoneIcon from "@mui/icons-material/Phone";
+import MapIcon from "./icons/MapIcon";
 const Footer = () => {
   return (
     <>
@@ -45,22 +45,22 @@ const Footer = () => {
               <Grid item xs={12} md={4} sx={{ color: "white !important" }}>
                 <Typography variant="h5">We Are Social</Typography>
                 <Stack>
-                  <Link href="/">
+                  <Link href="/swap">
                     <a>Swap-It</a>
                   </Link>
                   <Link href="/">
                     <a>About</a>
                   </Link>
-                  <Link href="/">
+                  <Link href="/login">
                     <a>Login</a>
                   </Link>
-                  <Link href="/">
+                  <Link href="/register">
                     <a>Register</a>
                   </Link>
                   <Link href="/">
                     <a>Contact</a>
                   </Link>
-                  <Link href="/">
+                  <Link href="https://towncryer.com.ng/">
                     <a>News</a>
                   </Link>
                 </Stack>
@@ -80,18 +80,18 @@ const Footer = () => {
                 <Typography variant="h5">Contact Info</Typography>
                 <Stack spacing={1}>
                   <Typography variant="span">
-                    <PinDropIcon /> 11, Kashim Ibrahim Road, Old GRA, Makurdi,
-                    Nigeria.
+                    <MapIcon color="white" /> 11, Kashim Ibrahim Road, Old GRA,
+                    Makurdi, Nigeria.
+                  </Typography>
+                  <Typography variant="span">
+                    <PhoneIcon />{" "}
+                    <a href="tel:+234 8052465145">+234 8052465145</a>
                   </Typography>
                   <Typography variant="span">
                     <EmailIcon />{" "}
                     <a href="mailto:support@buildbrothers.com">
                       support@buildbrothers.com
                     </a>
-                  </Typography>
-                  <Typography variant="span">
-                    <PhoneIcon />{" "}
-                    <a href="tel:+234 8052465145">+234 8052465145</a>
                   </Typography>
                 </Stack>
               </Grid>
@@ -101,7 +101,9 @@ const Footer = () => {
       </Box>
       <Box sx={{ py: 1 }}>
         <Container>
-          <Typography variant="h5">© 2021 Build Brothers NG</Typography>
+          <Typography variant="h5">
+            © {new Date().getFullYear()} Build Brothers NG
+          </Typography>
         </Container>
       </Box>
     </>

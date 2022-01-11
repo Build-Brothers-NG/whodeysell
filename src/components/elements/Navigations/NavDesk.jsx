@@ -1,30 +1,36 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  Container,
-  Typography,
-  Breadcrumbs,
-  IconButton,
-  Divider,
-  Menu,
-  MenuItem,
-  Button,
-} from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import SearchIcon from "@mui/icons-material/Search";
-import LogoutIcon from "@mui/icons-material/Logout";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Divider from "@mui/material/Divider";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+
 import { Search, SearchIconWrapper, StyledInputBase } from "../SearchInput";
-import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
-import NavB from "./NavB";
 import { GlobalContext } from "../../../GlobalContext";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import { CleanURL } from "simple-sharer";
+import dynamic from "next/dynamic";
+const NavB = dynamic(() => import("./NavB"));
+const AccountCircleIcon = dynamic(() =>
+  import("@mui/icons-material/AccountCircle")
+);
+const AddIcon = dynamic(() => import("@mui/icons-material/Add"));
+const LightModeIcon = dynamic(() => import("@mui/icons-material/LightMode"));
+const DarkModeIcon = dynamic(() => import("@mui/icons-material/DarkMode"));
+const SearchIcon = dynamic(() => import("@mui/icons-material/Search"));
+const LogoutIcon = dynamic(() => import("@mui/icons-material/Logout"));
+const KeyboardArrowUpIcon = dynamic(() =>
+  import("@mui/icons-material/KeyboardArrowUp")
+);
+const KeyboardArrowDownIcon = dynamic(() =>
+  import("@mui/icons-material/KeyboardArrowDown")
+);
 
 const NavDesk = () => {
   const {
@@ -40,6 +46,7 @@ const NavDesk = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   return (
     <Box
+      id="nav-top"
       sx={{
         ".MuiBreadcrumbs-li": { color: "white !important" },
         display: { xs: "none", md: "flex" },
@@ -55,7 +62,7 @@ const NavDesk = () => {
                   <Box
                     component="img"
                     src="/wds_.png"
-                    sx={{ width: "100px" }}
+                    sx={{ width: "100px", height: "auto" }}
                   />
                 </a>
               </Link>

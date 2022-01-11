@@ -1,0 +1,26 @@
+import SvgIcon from "@mui/material/SvgIcon";
+
+const MenuIcon = (props) => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="17"
+        height="16"
+        viewBox="0 0 17 16"
+      >
+        <g id="Menu" transform="translate(-0.294 0.877)">
+          <path
+            id="Menu-2"
+            data-name="Menu"
+            d="M0,16V13.714H10.626V16ZM0,9.143V6.857H17V9.143ZM0,2.286V0H17V2.286Z"
+            transform="translate(0.294 -0.877)"
+            fill="#fff"
+          />
+        </g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+export default MenuIcon;

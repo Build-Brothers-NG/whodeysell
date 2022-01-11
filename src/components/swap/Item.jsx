@@ -3,22 +3,28 @@ import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
 import Link from "next/link";
 import { CleanURL } from "simple-sharer";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+const MapIcon = dynamic(() => import("../icons/MapIcon"));
 const Item = ({ item }) => {
   return (
     <Link href={CleanURL(`/swap/item/${item.itemName}/${item.id}`)}>
       <a>
         <Card sx={{ width: "100%" }}>
-          <CardMedia
-            component="img"
-            height="200"
-            alt={item.itemName}
-            title={item.itemName}
-            image={
-              item.photo === ""
-                ? "/temp.jpg"
-                : `https://buildbrothers.com/enenu/images/${item.photo}`
-            }
-          />
+          <Box sx={{ width: "100%", height: 200, position: "relative" }}>
+            <Image
+              src={
+                item.photo === ""
+                  ? "/temp.jpg"
+                  : `https://buildbrothers.com/enenu/images/${item.photo}`
+              }
+              layout="fill"
+              objectFit="cover"
+              priority
+              alt={item.itemName}
+              title={item.itemName}
+            />
+          </Box>
           <CardContent
             sx={{
               display: "flex",
@@ -53,7 +59,7 @@ const Item = ({ item }) => {
               color="secondary"
               sx={{ display: "flex", alignItems: "center", ml: "-5px" }}
             >
-              <Box component="img" src="/map.svg" sx={{ width: "20px" }} />
+              <MapIcon color="primary" />
               {item.city}
             </Typography>
           </CardContent>

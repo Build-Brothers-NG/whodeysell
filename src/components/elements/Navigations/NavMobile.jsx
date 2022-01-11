@@ -1,36 +1,48 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  Container,
-  Typography,
-  IconButton,
-  Stack,
-  SpeedDial,
-  SpeedDialAction,
-  SwipeableDrawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
-import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
-import CloseIcon from "@mui/icons-material/CloseSharp";
-import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
+
 import { Search, SearchIconWrapper, StyledInputBase } from "../SearchInput";
 import Link from "next/link";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import NavB from "./NavB";
+
 import { GlobalContext } from "../../../GlobalContext";
 import { CleanURL } from "simple-sharer";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+const NavB = dynamic(() => import("./NavB"));
+const AccountCircleIcon = dynamic(() =>
+  import("@mui/icons-material/AccountCircle")
+);
+const SwapVerticalCircleIcon = dynamic(() =>
+  import("@mui/icons-material/SwapVerticalCircle")
+);
+const CloseIcon = dynamic(() => import("@mui/icons-material/CloseSharp"));
+const LoginIcon = dynamic(() => import("@mui/icons-material/Login"));
+const MenuIcon = dynamic(() => import("../../icons/MenuIcon"));
+const AddIcon = dynamic(() => import("@mui/icons-material/Add"));
+const LightModeIcon = dynamic(() => import("@mui/icons-material/LightMode"));
+const DarkModeIcon = dynamic(() => import("@mui/icons-material/DarkMode"));
+const SearchIcon = dynamic(() => import("@mui/icons-material/Search"));
+const LogoutIcon = dynamic(() => import("@mui/icons-material/Logout"));
+const KeyboardArrowUpIcon = dynamic(() =>
+  import("@mui/icons-material/KeyboardArrowUp")
+);
+const KeyboardArrowDownIcon = dynamic(() =>
+  import("@mui/icons-material/KeyboardArrowDown")
+);
+
 const NavMobile = () => {
   const [drawer, openDrawer] = React.useState(false);
   const {
@@ -56,19 +68,20 @@ const NavMobile = () => {
         ),
     },
     {
+      icon: <SwapVerticalCircleIcon />,
+      text: "Swap-It",
+      func: () => router.push("/swap"),
+    },
+    {
       icon: <AddIcon />,
       text: "Add New Item",
       func: () => router.push("/add"),
-    },
-    {
-      icon: <SearchIcon />,
-      text: "Search",
-      func: () => router.push("/search"),
     },
   ];
   return (
     <>
       <Box
+        id="nav-top2"
         sx={{
           display: { xs: "flex", md: "none" },
           flexDirection: "column",
@@ -96,13 +109,23 @@ const NavMobile = () => {
                       <Box
                         component="img"
                         src="/wds_.png"
-                        sx={{ width: "100px" }}
+                        sx={{ width: "100px", height: "auto" }}
                       />
                     </a>
                   </Link>
-                  <IconButton>
-                    <AccountCircleIcon color="white" fontSize="large" />
-                  </IconButton>
+                  <Link
+                    href={
+                      user.authenticated
+                        ? `/user/${CleanURL(`${user.name}/${user.id}`)}`
+                        : "/login"
+                    }
+                  >
+                    <a>
+                      <IconButton>
+                        <AccountCircleIcon color="white" fontSize="large" />
+                      </IconButton>
+                    </a>
+                  </Link>
                 </Box>
                 <Search>
                   <StyledInputBase

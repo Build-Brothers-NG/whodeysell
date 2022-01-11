@@ -23,6 +23,15 @@ const Trending = ({ items }) => {
       <Typography variant="h5" color="secondary" sx={{ my: "5px" }}>
         Trending Items
       </Typography>
+      {items.length === 0 && (
+        <Typography
+          variant="h5"
+          color="secondary"
+          sx={{ my: "5px", textAlign: "center" }}
+        >
+          No items from this location
+        </Typography>
+      )}
       {show && (
         <Box>
           <Swiper

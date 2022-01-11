@@ -1,32 +1,23 @@
 import React from "react";
-import {
-  Box,
-  Grid,
-  Container,
-  Avatar,
-  Typography,
-  Stack,
-  Button,
-  IconButton,
-  SpeedDial,
-  Backdrop,
-  Snackbar,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import SpeedDial from "@mui/material/SpeedDial";
+import Backdrop from "@mui/material/Backdrop";
+import Snackbar from "@mui/material/Snackbar";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Axios from "axios";
 import Link from "next/link";
 import Suggestion from "../../../src/components/Suggestion";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Head from "next/head";
+import MapIcon from "../../../src/components/icons/MapIcon";
 import { useRouter } from "next/router";
-import ShareIcon from "@mui/icons-material/Share";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import RedditIcon from "@mui/icons-material/Reddit";
-import LinkIcon from "@mui/icons-material/Link";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import CloseIcon from "@mui/icons-material/CloseSharp";
 import {
-  simplesharer,
   Facebook,
   Twitter,
   Reddit,
@@ -36,6 +27,16 @@ import {
 } from "simple-sharer";
 import { getCookie } from "../../../src/useCookie";
 import { GlobalContext } from "../../../src/GlobalContext";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+const PhoneIcon = dynamic(() => import("@mui/icons-material/Phone"));
+const ShareIcon = dynamic(() => import("@mui/icons-material/Share"));
+const FacebookIcon = dynamic(() => import("@mui/icons-material/Facebook"));
+const TwitterIcon = dynamic(() => import("@mui/icons-material/Twitter"));
+const RedditIcon = dynamic(() => import("@mui/icons-material/Reddit"));
+const LinkIcon = dynamic(() => import("@mui/icons-material/Link"));
+const CloseIcon = dynamic(() => import("@mui/icons-material/CloseSharp"));
+const WhatsAppIcon = dynamic(() => import("@mui/icons-material/WhatsApp"));
 const Detail = (props) => {
   const router = useRouter();
   const { item, suggestions } = props.item;
@@ -183,19 +184,23 @@ const Detail = (props) => {
                 }}
               >
                 <Box
-                  component="img"
-                  src={
-                    item.photo === ""
-                      ? "/temp.jpg"
-                      : `https://buildbrothers.com/enenu/images/${item.photo}`
-                  }
                   sx={{
                     width: "100%",
-                    borderRadius: "10px",
-                    height: "400px",
-                    objectFit: "cover !important",
+                    height: 400,
+                    position: "relative",
                   }}
-                />
+                >
+                  <Image
+                    src={
+                      item.photo === ""
+                        ? "/temp.jpg"
+                        : `https://buildbrothers.com/enenu/images/${item.photo}`
+                    }
+                    layout="fill"
+                    objectFit="cover"
+                    className="detail-image"
+                  />
+                </Box>
                 <Box
                   className="view-image"
                   sx={{
@@ -224,6 +229,7 @@ const Detail = (props) => {
                   display: "flex",
                   flexDirection: { xs: "column", md: "row" },
                   alignItems: { md: "center" },
+                  my: 1,
                 }}
               >
                 <Button
@@ -288,15 +294,14 @@ const Detail = (props) => {
                 </Typography>
                 <Typography variant="span" color="secondary">
                   City
-                  <Box component="img" src="/map.svg" sx={{ width: "20px" }} />
+                  <MapIcon color="primary" />
                 </Typography>
                 <Typography variant="h6">
                   {item.city[0].toUpperCase() +
                     item.city.substring(1, item.city.length)}
                 </Typography>
                 <Typography variant="span" color="secondary">
-                  Location{" "}
-                  <Box component="img" src="/map.svg" sx={{ width: "20px" }} />
+                  Location <MapIcon color="primary" />
                 </Typography>
                 <Typography variant="h6">{item.purchase_location}</Typography>
                 <Typography variant="span" color="secondary">
@@ -315,11 +320,16 @@ const Detail = (props) => {
           sx={{ zIndex: 10000 }}
           onClick={() => setShowImage(false)}
         >
-          <Container maxWidth="sm" sx={{ overflowY: "auto" }}>
+          <Container maxWidth="md" sx={{ overflowY: "none" }}>
             <Box
               sx={{
                 position: "relative",
-                height: { xs: "fit-content", md: "90vh" },
+                height: "90vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "fit-content",
+                margin: "auto",
               }}
             >
               <IconButton
@@ -328,6 +338,7 @@ const Detail = (props) => {
               >
                 <CloseIcon color="white" />
               </IconButton>
+
               <Box
                 component="img"
                 src={
@@ -336,9 +347,9 @@ const Detail = (props) => {
                     : `https://buildbrothers.com/enenu/images/${item.photo}`
                 }
                 sx={{
-                  width: "100%",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
                   borderRadius: "10px",
-                  height: "fit-content",
                   objectFit: "cover !important",
                 }}
               />

@@ -1,10 +1,18 @@
 import * as React from "react";
-import { Box, Container, Typography, Chip, Stack } from "@mui/material";
-import Slider from "../src/components/Slider";
-import Recent from "../src/components/Recent";
-import Trending from "../src/components/Trending";
-import All from "../src/components/All";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import Zoom from "@mui/material/Zoom";
+import Button from "@mui/material/Button";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Axios from "axios";
+import dynamic from "next/dynamic";
+const Trending = dynamic(() => import("../src/components/Trending"));
+const Recent = dynamic(() => import("../src/components/Recent"));
+const Slider = dynamic(() => import("../src/components/Slider"));
+const All = dynamic(() => import("../src/components/All"));
+
 const categories = [
   "all",
   "food stuffs",
@@ -18,9 +26,39 @@ const categories = [
 
 export default function Index({ data, all }) {
   const [currCat, setCurrCat] = React.useState("all");
-
+  const trigger = useScrollTrigger({ threshold: 500 });
+  const goTop = (event) => {
+    const anchor = document.querySelector("#nav-top");
+    const anchor2 = document.querySelector("#nav-top2");
+    if (anchor || anchor2) {
+      anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+      anchor2.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
   return (
     <>
+      <Box
+        sx={{
+          zIndex: 1000000,
+          position: "fixed",
+          top: 10,
+          display: trigger ? "flex" : "none",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <Zoom in={trigger}>
+          <Button
+            color="primary"
+            variant="contained"
+            disableElevation
+            sx={{ borderRadius: "50px" }}
+            onClick={() => goTop()}
+          >
+            Scroll to top
+          </Button>
+        </Zoom>
+      </Box>
       <Box sx={{ bgcolor: "background.default" }}>
         <Slider />
       </Box>
@@ -34,11 +72,12 @@ export default function Index({ data, all }) {
           {categories.map((cat) => {
             return (
               <Chip
+                onClick={() => setCurrCat(cat)}
                 color="primary"
                 variant={currCat === cat ? "filled" : "outlined"}
                 label={cat}
                 key={cat}
-                clickable
+                // clickable
               />
             );
           })}

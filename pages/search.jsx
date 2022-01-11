@@ -1,4 +1,8 @@
-import { Container, Box, Grid, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+
 import React from "react";
 import Axios from "axios";
 import Item from "../src/components/Item";

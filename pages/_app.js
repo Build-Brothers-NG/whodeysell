@@ -6,17 +6,17 @@ import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
-// import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
 import Nav from "../src/components/Nav";
 import "../styles/global.css";
 import Footer from "../src/components/Footer";
-import { Backdrop, Box } from "@mui/material";
+import Box from "@mui/material/Box";
+import Backdrop from "@mui/material/Backdrop";
 import { useRouter } from "next/router";
 import Loader from "../src/components/Loader";
 import Axios from "axios";
 import { getCookie } from "../src/useCookie";
-import { GlobalContext, GlobalProvider } from "../src/GlobalContext";
+import { GlobalProvider } from "../src/GlobalContext";
 Axios.defaults.baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api"
@@ -95,6 +95,7 @@ export default function MyApp(props) {
   const loading = (data) => {
     setLoad(data);
   };
+
   React.useEffect(() => {
     const handleRoute = (url) => {
       setLoad(true);
@@ -111,7 +112,7 @@ export default function MyApp(props) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Whodeysell</title>
+        <title>WhoDeySell - Find items near you</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <GlobalProvider loading={loading} load={load} changeTheme={changeTheme}>
@@ -119,9 +120,7 @@ export default function MyApp(props) {
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <Box
             sx={{
-              bgcolor: theme.palette.bgcolor
-                ? theme.palette.bgcolor.main
-                : "background.paper",
+              bgcolor: theme.palette.bgcolor.main,
             }}
           >
             <CssBaseline />
@@ -146,19 +145,3 @@ MyApp.propTypes = {
   emotionCache: PropTypes.object,
   pageProps: PropTypes.object.isRequired,
 };
-
-export async function getInitialProps(context) {
-  console.log("hello world");
-  // const res = await fetch(`https://.../data`);
-  // const data = await res.json();
-
-  // if (!data) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-
-  return {
-    props: { mode: "dark" }, // will be passed to the page component as props
-  };
-}

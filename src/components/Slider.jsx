@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, IconButton, Backdrop } from "@mui/material";
+import Box from "@mui/material/Box";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,13 +12,13 @@ SwiperCore.use([Navigation, Autoplay, Pagination]);
 const Slider = () => {
   const [show, hide] = React.useState(true);
   useEffect(() => {
-    setTimeout(() => hide(false), 2000);
+    setTimeout(() => hide(false), 1000);
   }, []);
   return (
     <Box
       sx={{
         ".mySwiper": {
-          height: { xs: "70vw", sm: "30vw" },
+          height: { xs: "70vw", sm: "50vw", md: "30vw" },
           position: "relative",
           bgcolor: "transparent !important",
         },
@@ -48,7 +48,7 @@ const Slider = () => {
             left: 0,
             width: "100%",
             height: "100%",
-            bgcolor: "white.main",
+            bgcolor: "background.default",
             zIndex: 1000,
           }}
         ></Box>
