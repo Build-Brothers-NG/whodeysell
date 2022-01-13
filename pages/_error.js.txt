@@ -1,0 +1,16 @@
+function Error({ statusCode }) {}
+
+export const getServerSideProps = ({ res, err }) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { props: { statusCode } };
+  // if (statusCode === 404) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: "/pagenotfound",
+  //     },
+  //   };
+  // }
+};
+
+export default Error;

@@ -1,5 +1,4 @@
 import React from "react";
-
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -10,7 +9,6 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
-import Backdrop from "@mui/material/Backdrop";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
@@ -18,9 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import FormHelperText from "@mui/material/FormHelperText";
-
 import Link from "next/link";
-import AddIcon from "@mui/icons-material/Add";
 import { ValidateItem } from "../src/Validation";
 import {
   getStorage,
@@ -34,7 +30,6 @@ import { getCookie } from "../src/useCookie";
 import { useRouter } from "next/router";
 import { GlobalContext } from "../src/GlobalContext";
 import {
-  simplesharer,
   Facebook,
   Twitter,
   Reddit,
@@ -48,14 +43,17 @@ const TwitterIcon = dynamic(() => import("@mui/icons-material/Twitter"));
 const RedditIcon = dynamic(() => import("@mui/icons-material/Reddit"));
 const LinkIcon = dynamic(() => import("@mui/icons-material/Link"));
 const WhatsAppIcon = dynamic(() => import("@mui/icons-material/WhatsApp"));
+const AddIcon = dynamic(() => import("@mui/icons-material/Add"));
+
 const categories = [
-  "food stuffs",
-  "fruits",
-  "vegetables",
+  "food stuff",
   "electronics",
   "phones",
   "laptops",
   "farm produce",
+  "fashion",
+  "service",
+  "others",
 ];
 const units = [
   "Mudu",
@@ -155,7 +153,7 @@ const Add = () => {
     description: "",
     qty: "",
     unit: "",
-    categories: [],
+    category: "",
     photo: [],
   };
   const [error, setError] = React.useState(defError);
@@ -200,7 +198,6 @@ const Add = () => {
             temp.city = [item.city, item.state];
             temp.photo = url;
             delete temp.state;
-            delete temp.categories;
             await Axios.post("/add", {
               token: getCookie("wds_user").token,
               value: temp,
@@ -221,7 +218,6 @@ const Add = () => {
       temp.city = [item.city, item.state];
       delete temp.photo;
       delete temp.state;
-      delete temp.categories;
       await Axios.post("/add", {
         token: getCookie("wds_user").token,
         value: temp,
@@ -245,8 +241,19 @@ const Add = () => {
       <Box sx={{ my: 5 }}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
-            <Alert severity="success" icon={false} sx={{ p: 2 }}>
-              Hi {user.name}, what are you adding today!
+            <Alert
+              severity="success"
+              icon={false}
+              sx={{ p: 2, display: "flex", justifyContent: "center" }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                Hi {user.name}, what are you adding today!
+              </Typography>
             </Alert>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -380,41 +387,30 @@ const Add = () => {
             <Select
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
-              multiple
               variant="filled"
               fullWidth
-              value={item.categories}
+              value={item.category}
               displayEmpty
-              label="Choose Item Categories"
-              onChange={(event) => {
-                const {
-                  target: { value },
-                } = event;
-                setItem({
-                  ...item,
-                  categories:
-                    typeof value === "string" ? value.split(",") : value,
-                });
-              }}
+              label="Choose Item Category"
+              onChange={(e) => setItem({ ...item, category: e.target.value })}
               renderValue={(selected) => {
-                if (selected.length === 0) {
-                  return <>Choose Item Categories</>;
+                if (selected === "") {
+                  return <>Choose Item Category</>;
                 }
-                return selected.join(", ");
+                return selected;
               }}
               MenuProps={MenuProps}
             >
               <MenuItem disabled value="">
-                <em>Choose Item Categories</em>
+                <em>Choose Item Category</em>
               </MenuItem>
               {categories.map((category) => (
                 <MenuItem key={category} value={category}>
-                  <Checkbox checked={item.categories.indexOf(category) > -1} />
                   <ListItemText primary={category} />
                 </MenuItem>
               ))}
             </Select>
-            {error.path === "categories" && (
+            {error.path === "category" && (
               <FormHelperText>{error.message}</FormHelperText>
             )}
           </Grid>
@@ -471,7 +467,7 @@ const Add = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Your item was added successfully
           </Typography>
-          <Link href={CleanURL(`/item/${open.name}/${open.id}`)}>
+          <Link href={CleanURL(`/item/${open.name}/${open.id}`)} passHref>
             <a>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Click here to view item now

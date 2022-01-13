@@ -1,19 +1,17 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 import createEmotionCache from "../src/createEmotionCache";
-import Nav from "../src/components/Nav";
 import "../styles/global.css";
-import Footer from "../src/components/Footer";
 import Box from "@mui/material/Box";
 import Backdrop from "@mui/material/Backdrop";
 import { useRouter } from "next/router";
-import Loader from "../src/components/Loader";
 import Axios from "axios";
 import { getCookie } from "../src/useCookie";
 import { GlobalProvider } from "../src/GlobalContext";
@@ -22,7 +20,9 @@ Axios.defaults.baseURL =
     ? "http://localhost:3000/api"
     : "https://whodeysell.com.ng/api";
 Axios.defaults.withCredentials = true;
-
+const Nav = dynamic(() => import("../src/components/Nav"));
+const Footer = dynamic(() => import("../src/components/Footer"));
+const Loader = dynamic(() => import("../src/components/Loader"));
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
@@ -97,6 +97,12 @@ export default function MyApp(props) {
   };
 
   React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setLoad(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
     const handleRoute = (url) => {
       setLoad(true);
     };
@@ -114,6 +120,14 @@ export default function MyApp(props) {
       <Head>
         <title>WhoDeySell - Find items near you</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+        <meta
+          name="description"
+          content="WhoDeySell is a people driven marketplace - find stuff near you starting with knowing how much it costs"
+        />
       </Head>
       <GlobalProvider loading={loading} load={load} changeTheme={changeTheme}>
         <ThemeProvider theme={theme}>

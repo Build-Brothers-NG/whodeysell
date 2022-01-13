@@ -104,7 +104,7 @@ const NavMobile = () => {
                   >
                     <Box component="img" src="/menu.svg" />
                   </IconButton>
-                  <Link href="/">
+                  <Link href="/" passHref>
                     <a>
                       <Box
                         component="img"
@@ -119,6 +119,7 @@ const NavMobile = () => {
                         ? `/user/${CleanURL(`${user.name}/${user.id}`)}`
                         : "/login"
                     }
+                    passHref
                   >
                     <a>
                       <IconButton>
@@ -187,7 +188,7 @@ const NavMobile = () => {
           onKeyDown={() => openDrawer(false)}
         >
           <List>
-            <Link href="/">
+            <Link href="/" passHref>
               <a>
                 <ListItem>
                   <Box
@@ -217,7 +218,7 @@ const NavMobile = () => {
                 </ListItem>
               </a>
             </Link>
-            <Link href="/add">
+            <Link href="/add" passHref prefetch={false}>
               <a>
                 <ListItem>
                   <ListItemIcon>
@@ -227,7 +228,7 @@ const NavMobile = () => {
                 </ListItem>
               </a>
             </Link>
-            <Link href="/swap">
+            <Link href="/swap" passHref prefetch={false}>
               <a>
                 <ListItem>
                   <ListItemIcon>
@@ -280,7 +281,7 @@ const NavMobile = () => {
               </ListItem>
             ) : (
               <>
-                <Link href="/login">
+                <Link href="/login" passHref>
                   <a>
                     <ListItem>
                       <ListItemIcon>
@@ -290,7 +291,7 @@ const NavMobile = () => {
                     </ListItem>
                   </a>
                 </Link>
-                <Link href="/register">
+                <Link href="/register" passHref>
                   <a>
                     <ListItem>
                       <ListItemIcon>

@@ -3,8 +3,9 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import Item from "./Item";
+import dynamic from "next/dynamic";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
+const Item = dynamic(() => import("./Item"));
 SwiperCore.use([Navigation, Autoplay]);
 
 const Trending = ({ items }) => {
@@ -20,13 +21,13 @@ const Trending = ({ items }) => {
   }, []);
   return (
     <>
-      <Typography variant="h5" color="secondary" sx={{ my: "5px" }}>
+      <Typography variant="h5" color="text.primary" sx={{ my: "5px" }}>
         Trending Items
       </Typography>
       {items.length === 0 && (
         <Typography
           variant="h5"
-          color="secondary"
+          color="text.primary"
           sx={{ my: "5px", textAlign: "center" }}
         >
           No items from this location

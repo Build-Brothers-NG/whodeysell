@@ -8,10 +8,18 @@ import { CleanURL } from "simple-sharer";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 const MapIcon = dynamic(() => import("./icons/MapIcon"));
+
+const MyItem = React.forwardRef(({ onClick, href, children }, ref) => {
+  return (
+    <a href={href} onClick={onClick} ref={ref}>
+      {children}
+    </a>
+  );
+});
 const Item = ({ item }) => {
   return (
-    <Link href={CleanURL(`/item/${item.itemName}/${item.id}`)}>
-      <a>
+    <Link href={CleanURL(`/item/${item.itemName}/${item.id}`)} passHref>
+      <MyItem>
         <Card sx={{ width: "100%" }}>
           <Box sx={{ width: "100%", height: 200, position: "relative" }}>
             <Image
@@ -63,7 +71,7 @@ const Item = ({ item }) => {
             </Typography>
           </CardContent>
         </Card>
-      </a>
+      </MyItem>
     </Link>
   );
 };

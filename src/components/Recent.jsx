@@ -1,17 +1,15 @@
 import React from "react";
-import {
-  Grid,
-  Box,
-  Container,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import Item from "./Item";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
+import dynamic from "next/dynamic";
+const Item = dynamic(() => import("./Item"));
 const Recent = ({ items }) => {
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up("lg"));
@@ -25,13 +23,13 @@ const Recent = ({ items }) => {
   }, []);
   return (
     <>
-      <Typography variant="h5" color="secondary" sx={{ my: "5px" }}>
+      <Typography variant="h5" color="text.primary" sx={{ my: "5px" }}>
         Recent Items
       </Typography>
       {items.length === 0 && (
         <Typography
           variant="h5"
-          color="secondary"
+          color="text.primary"
           sx={{ my: "5px", textAlign: "center" }}
         >
           No items from this location

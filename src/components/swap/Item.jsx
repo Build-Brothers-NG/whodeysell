@@ -1,14 +1,17 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Link from "next/link";
 import { CleanURL } from "simple-sharer";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 const MapIcon = dynamic(() => import("../icons/MapIcon"));
+const VisibilityIcon = dynamic(() => import("@mui/icons-material/Visibility"));
 const Item = ({ item }) => {
   return (
-    <Link href={CleanURL(`/swap/item/${item.itemName}/${item.id}`)}>
+    <Link href={CleanURL(`/swap/item/${item.itemName}/${item.id}`)} passHref>
       <a>
         <Card sx={{ width: "100%" }}>
           <Box sx={{ width: "100%", height: 200, position: "relative" }}>

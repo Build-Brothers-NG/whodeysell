@@ -57,7 +57,7 @@ const NavDesk = () => {
         <Toolbar>
           <Container sx={{ display: "flex", alignItems: "center" }}>
             <Box sx={{ flexGrow: 1 }}>
-              <Link href="/">
+              <Link href="/" passHref>
                 <a>
                   <Box
                     component="img"
@@ -112,14 +112,17 @@ const NavDesk = () => {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <Link href={`/user/${CleanURL(`${user.name}/${user.id}`)}`}>
+                  <Link
+                    href={`/user/${CleanURL(`${user.name}/${user.id}`)}`}
+                    passHref
+                  >
                     <a>
                       <MenuItem>
                         <AccountCircleIcon /> Profile
                       </MenuItem>
                     </a>
                   </Link>
-                  <Link href="/add">
+                  <Link href="/add" passHref prefetch={false}>
                     <a>
                       <MenuItem>
                         <AddIcon /> Add New Item
@@ -156,10 +159,10 @@ const NavDesk = () => {
               </>
             ) : (
               <Breadcrumbs separator="|" sx={{ ml: 2 }} color="white">
-                <Link href="/login">
+                <Link href="/login" passHref>
                   <a>Login</a>
                 </Link>
-                <Link href="/register">
+                <Link href="/register" passHref>
                   <a>Register</a>
                 </Link>
               </Breadcrumbs>

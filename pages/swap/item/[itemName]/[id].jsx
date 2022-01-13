@@ -90,6 +90,7 @@ const Detail = ({ item: { item } }) => {
           name="description"
           content={`${item.itemName} For swap in ${item.city}, ${item.itemDescription}`}
         />
+        <meta name="robots" content="all" />
         <meta
           property="og:url"
           content={`https://whodeysell.com.ng${router.asPath}`}
@@ -116,7 +117,10 @@ const Detail = ({ item: { item } }) => {
         <Box sx={{ my: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sx={{ display: "flex", alignItems: "center" }}>
-              <Link href={`/user/${CleanURL(`${item.name}/${item.userId}`)}`}>
+              <Link
+                href={`/user/${CleanURL(`${item.name}/${item.userId}`)}`}
+                passHref
+              >
                 <a>
                   <Avatar color="text.primary" sx={{ width: 56, height: 56 }}>
                     {item.name[0].toUpperCase()}
@@ -124,7 +128,10 @@ const Detail = ({ item: { item } }) => {
                 </a>
               </Link>
               <Stack sx={{ mx: 1 }}>
-                <Link href={`/user/${CleanURL(`${item.name}/${item.userId}`)}`}>
+                <Link
+                  href={`/user/${CleanURL(`${item.name}/${item.userId}`)}`}
+                  passHref
+                >
                   <a>
                     <Typography variant="h6" sx={{ pb: 0 }}>
                       {item.name}
@@ -173,7 +180,7 @@ const Detail = ({ item: { item } }) => {
                     width: "100%",
                     height: "400px",
                     display: "none",
-                    bgcolor: "rgba(0, 0, 0, 0.9)",
+                    bgcolor: "rgba(0, 0, 0, 0.5)",
                     justifyContent: "center",
                     alignItems: "center",
                     position: "absolute",

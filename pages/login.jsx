@@ -111,7 +111,7 @@ const Login = () => {
           <Grid item xs={12} sx={{ textAlign: "center !important" }}>
             <Typography variant="span">
               Don't Have an Account?{" "}
-              <Link href="/register">
+              <Link href="/register" passHref>
                 <a>
                   <b>Register Here</b>
                 </a>

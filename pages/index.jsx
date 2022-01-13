@@ -7,25 +7,16 @@ import Zoom from "@mui/material/Zoom";
 import Button from "@mui/material/Button";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Axios from "axios";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 const Trending = dynamic(() => import("../src/components/Trending"));
 const Recent = dynamic(() => import("../src/components/Recent"));
 const Slider = dynamic(() => import("../src/components/Slider"));
 const All = dynamic(() => import("../src/components/All"));
 
-const categories = [
-  "all",
-  "food stuffs",
-  "fruits",
-  "vegetables",
-  "electronics",
-  "phones",
-  "laptops",
-  "farm produce",
-];
-
 export default function Index({ data, all }) {
-  const [currCat, setCurrCat] = React.useState("all");
+  const router = useRouter();
+  const [currCat, setCurrCat] = React.useState(router.query.cat || "all");
   const trigger = useScrollTrigger({ threshold: 500 });
   const goTop = (event) => {
     const anchor = document.querySelector("#nav-top");
@@ -35,6 +26,15 @@ export default function Index({ data, all }) {
       anchor2.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
+
+  React.useEffect(() => {
+    if (currCat === "all") {
+      router.push("/");
+    } else {
+      router.push(`?cat=${currCat}`);
+    }
+    console.log(router.query);
+  }, [currCat]);
   return (
     <>
       <Box
@@ -69,15 +69,21 @@ export default function Index({ data, all }) {
           spacing={1}
           sx={{ maxWidth: "100%", overflowX: "auto" }}
         >
-          {categories.map((cat) => {
+          <Chip
+            onClick={() => setCurrCat("all")}
+            color="primary"
+            variant={currCat === "all" ? "filled" : "outlined"}
+            label={"all"}
+            key={"all"}
+          />
+          {data.cats.map((cat) => {
             return (
               <Chip
-                onClick={() => setCurrCat(cat)}
+                onClick={() => setCurrCat(cat.cat_name)}
                 color="primary"
-                variant={currCat === cat ? "filled" : "outlined"}
-                label={cat}
-                key={cat}
-                // clickable
+                variant={currCat === cat.cat_name ? "filled" : "outlined"}
+                label={cat.cat_name}
+                key={cat.cat_name}
               />
             );
           })}
@@ -104,17 +110,22 @@ export async function getServerSideProps(context) {
       : location;
     location = location === "all" ? "" : location;
     const res = await Axios.post(
-      `https://buildbrothers.com/enenu/api/items?city=${location}`
+      `https://buildbrothers.com/enenu/api/items?city=${location}&cat=${
+        context.query.cat || ""
+      }`
     );
     const all = await Axios.get(
-      `https://buildbrothers.com/enenu/api/search?api=true&city=${location}`
+      `https://buildbrothers.com/enenu/api/search?api=true&city=${location}&cat=${
+        context.query.cat || ""
+      }`
     );
+    const only = all.data.items.filter((it) => it.category == "electronics");
     return {
-      props: { data: res.data, all: all.data }, // will be passed to the page component as props
+      props: { data: res.data, all: all.data },
     };
   } catch (e) {
     return {
-      props: { data: { items: [], recent: [] }, all: { items: [] } },
+      props: { data: { items: [], recent: [], cats: [] }, all: { items: [] } },
     };
   }
 }

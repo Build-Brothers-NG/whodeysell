@@ -54,7 +54,7 @@ const SideBar = () => {
       >
         {btns.map((btn) => {
           return (
-            <Link href={btn.link}>
+            <Link key={btn.link} href={btn.link} passHref>
               <a style={{ width: md_ ? "100%" : "fit-content" }}>
                 <Button
                   onClick={() => setActive(btn.link)}

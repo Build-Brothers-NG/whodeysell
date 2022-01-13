@@ -1,6 +1,9 @@
 import React from "react";
-import { Box, Container, Grid } from "@mui/material";
-import SideBar from "./SideBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import dynamic from "next/dynamic";
+const SideBar = dynamic(() => import("./SideBar"));
 const SwapLayout = ({ children }) => {
   return (
     <Container sx={{ px: { xs: "5px" } }}>

@@ -35,7 +35,7 @@ export const Slide1 = () => {
               This is Who Dey Sell (WDS) WDS is a people driven marketplace -
               find stuff near you starting with knowing how much it costs
             </Typography>
-            <Link href="/add">
+            <Link href="/add" passHref>
               <a>
                 <Button
                   disableElevation
@@ -100,7 +100,7 @@ export const Slide1 = () => {
                 This is Who Dey Sell (WDS) WDS is a people driven marketplace -
                 find stuff near you starting with knowing how much it costs
               </Typography>
-              <Link href="/add">
+              <Link href="/add" passHref>
                 <a>
                   <Button
                     disableElevation
@@ -163,7 +163,7 @@ export const Slide2 = () => {
               With Whodeysell Swap-It, you can swap your items on the platform
               with money or other items as well
             </Typography>
-            <Link href="/swap">
+            <Link href="/swap" passHref>
               <a>
                 <Button
                   variant={
@@ -229,7 +229,7 @@ export const Slide2 = () => {
                 With Whodeysell Swap-It, you can swap your items on the platform
                 with money or other items as well
               </Typography>
-              <Link href="/swap">
+              <Link href="/swap" passHref>
                 <a>
                   <Button
                     disableElevation

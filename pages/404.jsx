@@ -1,10 +1,17 @@
 import React from "react";
-
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-const PageNotFound = () => {
+import { useRouter } from "next/router";
+const NotFound = () => {
+  const router = useRouter();
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.location.href = "/pagenotfound";
+      router.replace("/pagenotfound");
+    }
+  }, []);
   return (
     <Container maxWidth="md">
       <Box
@@ -37,4 +44,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default NotFound;

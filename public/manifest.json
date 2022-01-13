@@ -1,1 +1,22 @@
-{"name":"WhoDeySell","short_name":"wds","icons":[{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#ffffff","background_color":"#479E7A","display":"standalone","orientation": "portrait-primary"}
+{
+    "name": "WhoDeySell",
+    "short_name": "wds",
+    "start_url": "/",
+    "description": "WhoDeySell is a people driven marketplace - find stuff near you starting with knowing how much it costs",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#479E7A",
+    "display": "standalone",
+    "orientation": "portrait-primary"
+}

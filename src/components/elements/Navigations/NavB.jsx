@@ -12,8 +12,7 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { GlobalContext } from "../../../GlobalContext";
 const NavB = () => {
   const locations = ["all", "makurdi", "gboko", "otukpo"];
-  const { user, setUser, location, setLocation } =
-    React.useContext(GlobalContext);
+  const { location, setLocation } = React.useContext(GlobalContext);
   const theme = useTheme();
   return (
     <Box
@@ -56,13 +55,13 @@ const NavB = () => {
             },
           }}
         >
-          <Link href="/add">
+          <Link href="/add" passHref prefetch={false}>
             <a>
               <AddIcon />
               Add
             </a>
           </Link>
-          <Link href="/swap">
+          <Link href="/swap" passHref prefetch={false}>
             <a>
               <SwapVertIcon />
               Swapt-It

@@ -418,7 +418,7 @@ const Add = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Your item was added successfully
           </Typography>
-          <Link href={CleanURL(`/swap/item/${open.name}/${open.id}`)}>
+          <Link href={CleanURL(`/swap/item/${open.name}/${open.id}`)} passHref>
             <a>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Click here to view item now

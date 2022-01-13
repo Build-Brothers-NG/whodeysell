@@ -1,12 +1,15 @@
 import React from "react";
-import { Grid, Box, Container, Typography } from "@mui/material";
-import Item from "./Item";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import dynamic from "next/dynamic";
+const Item = dynamic(() => import("./Item"));
 const All = ({ items }) => {
   return (
     <Box sx={{ mb: 5 }}>
       <Grid container spacing={{ xs: 1, sm: 2 }}>
         <Grid item xs={12}>
-          <Typography variant="h5" color="secondary">
+          <Typography variant="h5" color="text.primary">
             All Items
           </Typography>
         </Grid>
@@ -14,7 +17,7 @@ const All = ({ items }) => {
           <Grid item xs={12}>
             <Typography
               variant="h5"
-              color="secondary"
+              color="text.primary"
               sx={{ my: "5px", textAlign: "center" }}
             >
               No items from this location

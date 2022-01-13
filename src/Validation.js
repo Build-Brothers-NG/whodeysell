@@ -34,7 +34,7 @@ export const ValidateItem = (data) => {
     description: Joi.string().min(5).required(),
     qty: Joi.string().required(),
     unit: Joi.string().required(),
-    categories: Joi.array().min(1).required(),
+    category: Joi.string().required(),
     photo: Joi.any(),
   });
   return schema.validate(data);
