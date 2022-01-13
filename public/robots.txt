@@ -1,4 +1,4 @@
-Sitemap: https://www.whodeysell.com.ng
+Sitemap: https://www.whodeysell.com.ng/sitemap.xml
 # Allow all crawlers
 User-agent: *
 Allow: /
