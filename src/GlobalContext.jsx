@@ -18,8 +18,8 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    setCookie("wds_theme", theme || "light");
-    changeTheme(theme || "light");
+    setCookie("wds_theme", theme || "dark");
+    changeTheme(theme || "dark");
   }, [theme]);
 
   const logOut = () => {
@@ -61,12 +61,12 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
 
   useEffect(() => {
     if (!getCookie("wds_user") && user.authenticated) {
-      setCookie("wds_user", user, { path: "/" });
+      setCookie("wds_user", user);
     }
   }, [user]);
 
   useEffect(() => {
-    setCookie("wds_location", location, { path: "/" });
+    setCookie("wds_location", location);
     router.push(router.asPath);
   }, [location]);
   return (

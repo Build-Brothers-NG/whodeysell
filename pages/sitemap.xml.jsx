@@ -9,19 +9,19 @@ function generateSiteMap(items) {
      </url>
      <url>
        <loc>https://whodeysell.com.ng/add</loc>
-       <priority>0.5</priority>
+       <priority>0.9</priority>
      </url>
      <url>
        <loc>https://whodeysell.com.ng/login</loc>
-       <priority>0.5</priority>
+       <priority>0.9</priority>
      </url>
      <url>
        <loc>https://whodeysell.com.ng/register</loc>
-       <priority>0.5</priority>
+       <priority>0.9</priority>
      </url>
      <url>
        <loc>https://whodeysell.com.ng/search</loc>
-       <priority>0.5</priority>
+       <priority>0.9</priority>
      </url>
      ${items
        .map(({ id, itemName }) => {
@@ -30,7 +30,7 @@ function generateSiteMap(items) {
            <loc>https://whodeysell.com.ng/item/${`${CleanURL(
              `${itemName}/${id}`
            )}`}</loc>
-           <priority>0.8</priority>
+           <priority>1.0</priority>
            <changefreq>always</changefreq>
        </url>
      `;

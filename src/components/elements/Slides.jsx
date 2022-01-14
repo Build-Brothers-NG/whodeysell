@@ -214,6 +214,7 @@ export const Slide2 = () => {
                 position: "absolute",
                 bgcolor: "rgba(0, 0, 0, 0.5)",
                 height: "100%",
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
