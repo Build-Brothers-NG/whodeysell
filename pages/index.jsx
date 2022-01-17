@@ -9,12 +9,14 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Axios from "axios";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { Typography } from "@mui/material";
 const Trending = dynamic(() => import("../src/components/Trending"));
 const Recent = dynamic(() => import("../src/components/Recent"));
 const Slider = dynamic(() => import("../src/components/Slider"));
 const All = dynamic(() => import("../src/components/All"));
+const ReloadIcon = dynamic(() => import("@mui/icons-material/Replay"));
 
-export default function Index({ data, all }) {
+export default function Index({ data, all, message }) {
   const router = useRouter();
   const [currCat, setCurrCat] = React.useState(router.query.cat || "all");
   const trigger = useScrollTrigger({ threshold: 500 });
@@ -28,12 +30,7 @@ export default function Index({ data, all }) {
   };
 
   React.useEffect(() => {
-    if (currCat === "all") {
-      router.push("/");
-    } else {
-      router.push(`?cat=${currCat}`);
-    }
-    console.log(router.query);
+    currCat === "all" ? router.push("/") : router.push(`?cat=${currCat}`);
   }, [currCat]);
   return (
     <>
@@ -62,42 +59,68 @@ export default function Index({ data, all }) {
       <Box sx={{ bgcolor: "background.default" }}>
         <Slider />
       </Box>
-      <Container sx={{ my: 2, px: { xs: "5px" } }}>
-        <Stack
-          className="categories"
-          direction="row"
-          spacing={1}
-          sx={{ maxWidth: "100%", overflowX: "auto" }}
+      {message ? (
+        <Container
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            my: 7,
+          }}
         >
-          <Chip
-            onClick={() => setCurrCat("all")}
-            color="primary"
-            variant={currCat === "all" ? "filled" : "outlined"}
-            label={"all"}
-            key={"all"}
-          />
-          {data.cats.map((cat) => {
-            return (
+          <Typography variant="h5" sx={{ textAlign: "center", my: 3 }}>
+            It seems like we could not connect to whodeysell. You can try
+            reloading this page if you have an internet connection.
+          </Typography>
+          <Button
+            onClick={() => {
+              typeof window !== "undefined" && window.location.reload();
+            }}
+          >
+            Tap to Reload <ReloadIcon />
+          </Button>
+        </Container>
+      ) : (
+        <>
+          <Container sx={{ my: 2, px: { xs: "5px" } }}>
+            <Stack
+              className="categories"
+              direction="row"
+              spacing={1}
+              sx={{ maxWidth: "100%", overflowX: "auto" }}
+            >
               <Chip
-                onClick={() => setCurrCat(cat.cat_name)}
+                onClick={() => setCurrCat("all")}
                 color="primary"
-                variant={currCat === cat.cat_name ? "filled" : "outlined"}
-                label={cat.cat_name}
-                key={cat.cat_name}
+                variant={currCat === "all" ? "filled" : "outlined"}
+                label={"all"}
+                key={"all"}
               />
-            );
-          })}
-        </Stack>
-      </Container>
-      <Container sx={{ px: { xs: "5px" } }}>
-        <Trending items={data.items} />
-      </Container>
-      <Container sx={{ px: { xs: "5px" } }}>
-        <Recent items={data.recent} />
-      </Container>
-      <Container sx={{ px: { xs: "5px" } }}>
-        <All items={all.items} />
-      </Container>
+              {data.cats.map((cat) => {
+                return (
+                  <Chip
+                    onClick={() => setCurrCat(cat.cat_name)}
+                    color="primary"
+                    variant={currCat === cat.cat_name ? "filled" : "outlined"}
+                    label={cat.cat_name}
+                    key={cat.cat_name}
+                  />
+                );
+              })}
+            </Stack>
+          </Container>
+          <Container sx={{ px: { xs: "5px" } }}>
+            <Trending items={data.items} />
+          </Container>
+          <Container sx={{ px: { xs: "5px" } }}>
+            <Recent items={data.recent} />
+          </Container>
+          <Container sx={{ px: { xs: "5px" } }}>
+            <All items={all.items} />
+          </Container>
+        </>
+      )}
     </>
   );
 }
@@ -119,13 +142,17 @@ export async function getServerSideProps(context) {
         context.query.cat || ""
       }`
     );
-    const only = all.data.items.filter((it) => it.category == "electronics");
+    // const only = all.data.items.filter((it) => it.category == "electronics");
     return {
-      props: { data: res.data, all: all.data },
+      props: { data: res.data, all: all.data, message: false },
     };
   } catch (e) {
     return {
-      props: { data: { items: [], recent: [], cats: [] }, all: { items: [] } },
+      props: {
+        data: { items: [], recent: [], cats: [] },
+        all: { items: [] },
+        message: true,
+      },
     };
   }
 }

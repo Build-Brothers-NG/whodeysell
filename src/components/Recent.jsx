@@ -32,7 +32,7 @@ const Recent = ({ items }) => {
           color="text.primary"
           sx={{ my: "5px", textAlign: "center" }}
         >
-          No items from this location
+          No items from this location or category
         </Typography>
       )}
       {show && (

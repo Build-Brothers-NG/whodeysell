@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -27,7 +27,6 @@ import {
 import { auth } from "../utils/firebase";
 import Axios from "axios";
 import { getCookie } from "../src/useCookie";
-import { useRouter } from "next/router";
 import { GlobalContext } from "../src/GlobalContext";
 import {
   Facebook,
@@ -44,7 +43,7 @@ const RedditIcon = dynamic(() => import("@mui/icons-material/Reddit"));
 const LinkIcon = dynamic(() => import("@mui/icons-material/Link"));
 const WhatsAppIcon = dynamic(() => import("@mui/icons-material/WhatsApp"));
 const AddIcon = dynamic(() => import("@mui/icons-material/Add"));
-
+import stateLga from "../src/statesandlga";
 const categories = [
   "food stuff",
   "electronics",
@@ -74,7 +73,7 @@ const units = [
   "Medium Basket",
   "Large Basket",
   "Kongo",
-  "Rubber Raint",
+  "Rubber Paint",
   "Bunch",
   "Head",
   "Cup",
@@ -91,45 +90,6 @@ const units = [
   "Kilo Gram (KG)",
   "Crate",
   "Pair",
-];
-const states = [
-  "Abia",
-  "Adamawa",
-  "Akwa Ibom",
-  "Anambra",
-  "Bauchi",
-  "Bayelsa",
-  "Benue",
-  "Borno",
-  "Cross River",
-  "Delta",
-  "Ebonyi",
-  "Edo",
-  "Ekiti",
-  "Enugu",
-  "FCT - Abuja",
-  "Gombe",
-  "Imo",
-  "Jigawa",
-  "Kaduna",
-  "Kano",
-  "Katsina",
-  "Kebbi",
-  "Kogi",
-  "Kwara",
-  "Lagos",
-  "Nasarawa",
-  "Niger",
-  "Ogun",
-  "Ondo",
-  "Osun",
-  "Oyo",
-  "Plateau",
-  "Rivers",
-  "Sokoto",
-  "Taraba",
-  "Yobe",
-  "Zamfara",
 ];
 
 const ITEM_HEIGHT = 48;
@@ -148,8 +108,9 @@ const Add = () => {
     name: "",
     amount: "",
     location: "",
-    city: "Makurdi",
-    state: "Benue",
+    city: "",
+    state: "",
+    otherCity: "",
     description: "",
     qty: "",
     unit: "",
@@ -159,6 +120,8 @@ const Add = () => {
   const [error, setError] = React.useState(defError);
   const [open, setOpen] = React.useState({ name: "", id: "" });
   const [item, setItem] = React.useState(defItem);
+  const [currState, setCurrState] = useState({ state: { locals: [{}] } });
+
   const actions = [
     { icon: <FacebookIcon />, text: "Share on Facebook", func: Facebook },
     { icon: <TwitterIcon />, text: "Share on Twitter", func: Twitter },
@@ -166,8 +129,7 @@ const Add = () => {
     { icon: <RedditIcon />, text: "Share on Reddit", func: Reddit },
     { icon: <LinkIcon />, text: "Copy Link", func: Copy },
   ];
-  const { user, setUser, loads, setLoads } = React.useContext(GlobalContext);
-  const router = useRouter();
+  const { user, setLoads } = React.useContext(GlobalContext);
   const addItem = async () => {
     const validate = ValidateItem(item);
     if (validate.error) {
@@ -195,7 +157,12 @@ const Add = () => {
         () =>
           getDownloadURL(uploadImg.snapshot.ref).then(async (url) => {
             const temp = { ...item };
-            temp.city = [item.city, item.state];
+            temp.city =
+              temp.city.toLowerCase() === "others" &&
+              !!temp.state &&
+              !!temp.otherCity
+                ? [temp.otherCity, temp.otherCity]
+                : temp.city;
             temp.photo = url;
             delete temp.state;
             await Axios.post("/add", {
@@ -215,7 +182,10 @@ const Add = () => {
       );
     } else {
       const temp = { ...item };
-      temp.city = [item.city, item.state];
+      temp.city =
+        temp.city.toLowerCase() === "others" && !!temp.state && !!temp.otherCity
+          ? [temp.otherCity, temp.otherCity]
+          : temp.city;
       delete temp.photo;
       delete temp.state;
       await Axios.post("/add", {
@@ -280,7 +250,7 @@ const Add = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={8}>
             <TextField
               error={error.path === "location"}
               helperText={error.path === "location" && error.message}
@@ -292,44 +262,96 @@ const Add = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Autocomplete
-              disablePortal
-              freeSolo
-              autoSelect
-              options={["Makurdi", "Gboko", "Otukpo"]}
-              inputValue={item.city}
-              onInputChange={(e, newInputValue) => {
-                setItem({ ...item, city: newInputValue });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="filled"
-                  {...params}
-                  label="City"
-                  fullWidth
-                  error={error.path === "city"}
-                  helperText={error.path === "city" && error.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={4}>
             <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={item.state}
+              labelId="select-your-city"
+              id="selec-city"
+              value={item.city}
               variant="filled"
               fullWidth
               label="State"
+              displayEmpty
+              renderValue={(selected) => {
+                if (selected === "") {
+                  return <>Choose City</>;
+                }
+                return selected;
+              }}
               MenuProps={MenuProps}
-              onChange={(e) => setItem({ ...item, state: e.target.value })}
+              onChange={(e) => setItem({ ...item, city: e.target.value })}
             >
-              {states.map((state) => {
-                return <MenuItem value={state}>{state}</MenuItem>;
+              <MenuItem disabled value="">
+                <em>Choose city</em>
+              </MenuItem>
+              {["Makurdi", "Gboko", "Otukpo", "Others"].map((ct) => {
+                return (
+                  <MenuItem key={ct} value={ct}>
+                    {ct}
+                  </MenuItem>
+                );
               })}
             </Select>
           </Grid>
+          {item.city.toLowerCase() === "others" && (
+            <>
+              <Grid item sm={6}>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={item.state}
+                  variant="filled"
+                  fullWidth
+                  label="State"
+                  MenuProps={MenuProps}
+                  displayEmpty
+                  renderValue={(selected) => {
+                    if (selected === "") {
+                      return <>Choose State</>;
+                    }
+                    return selected;
+                  }}
+                  onChange={(e) => setItem({ ...item, state: e.target.value })}
+                >
+                  <MenuItem disabled value="">
+                    <em>Choose State</em>
+                  </MenuItem>
+                  {stateLga.map((state) => {
+                    return (
+                      <MenuItem
+                        key={state.state.name}
+                        value={state.state.name}
+                        onClick={() => setCurrState(state)}
+                      >
+                        {state.state.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </Grid>
+              <Grid item sm={6}>
+                <Autocomplete
+                  disablePortal
+                  freeSolo
+                  autoSelect
+                  options={currState.state.locals.map((st) => st.name)}
+                  inputValue={item.otherCity}
+                  onInputChange={(e, newInputValue) => {
+                    setItem({ ...item, otherCity: newInputValue });
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="filled"
+                      {...params}
+                      label="City"
+                      fullWidth
+                      // error={error.path === "city"}
+                      // helperText={error.path === "city" && error.message}
+                    />
+                  )}
+                />
+              </Grid>
+            </>
+          )}
           <Grid item xs={12}>
             <TextField
               error={error.path === "description"}
@@ -457,7 +479,7 @@ const Add = () => {
         </Grid>
       </Box>
       <Modal
-        open={open.name && open.id}
+        open={!!open.name && !!open.id}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
