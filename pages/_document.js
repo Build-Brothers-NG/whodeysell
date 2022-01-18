@@ -64,11 +64,44 @@ export default class MyDocument extends Document {
           />
 
           <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Dongle:wght@100&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap"
+            rel="stylesheet"
+          ></link>
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <link rel="manifest" href="/manifest.json" />
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-8XFPWYLS5H"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-8XFPWYLS5H', {
+                page_path: window.location.pathname,
+              });`,
+            }}
+          />
         </Head>
         <body>
           <Main />

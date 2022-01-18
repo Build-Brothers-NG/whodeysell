@@ -2,8 +2,11 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { ThemeProvider } from "@mui/material/styles";
-import { createTheme } from "@mui/material/styles";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
@@ -15,6 +18,7 @@ import { useRouter } from "next/router";
 import Axios from "axios";
 import { getCookie } from "../src/useCookie";
 import { GlobalProvider } from "../src/GlobalContext";
+import * as ga from "../lib/ga";
 Axios.defaults.baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api"
@@ -52,6 +56,9 @@ export default function MyApp(props) {
       bgcolor: {
         main: "rgba(201, 199, 199, 0.13)",
       },
+      typography: {
+        fontFamily: ["Arima Madurai", "Raleway"].join(","),
+      },
     },
     light: {
       primary: {
@@ -84,12 +91,13 @@ export default function MyApp(props) {
   const changeTheme = (which) => {
     setMode(which);
   };
-  const theme = createTheme({
+  let theme = createTheme({
     palette: {
       mode,
       ...myPalete[mode || "dark"],
     },
   });
+  theme = responsiveFontSizes(theme);
   // theming
 
   const loading = (data) => {
@@ -109,6 +117,7 @@ export default function MyApp(props) {
 
     const endRoute = (url) => {
       setLoad(false);
+      ga.pageview(url);
     };
 
     router.events.on("routeChangeStart", handleRoute);

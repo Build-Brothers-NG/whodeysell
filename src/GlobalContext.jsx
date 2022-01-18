@@ -67,7 +67,7 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
 
   useEffect(() => {
     setCookie("wds_location", location);
-    router.push(router.asPath);
+    router.replace(router.asPath);
   }, [location]);
   return (
     <GlobalContext.Provider

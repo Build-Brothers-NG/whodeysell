@@ -30,7 +30,7 @@ export default function Index({ data, all, message }) {
   };
 
   React.useEffect(() => {
-    currCat === "all" ? router.push("/") : router.push(`?cat=${currCat}`);
+    currCat === "all" ? router.replace("/") : router.replace(`?cat=${currCat}`);
   }, [currCat]);
   return (
     <>

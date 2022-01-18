@@ -20,7 +20,7 @@ export const Slide1 = () => {
             xs={12}
             md={6}
             sx={{
-              textAlign: "center !important",
+              textAlign: "left !important",
               display: {
                 xs: "none",
                 md: "flex",
@@ -28,12 +28,21 @@ export const Slide1 = () => {
               },
             }}
           >
-            <Typography variant="h4" sx={{ my: 1 }}>
-              Welcome to Whodeysell (WDS)
+            <Typography
+              variant="h4"
+              sx={{ my: 1, fontFamily: "Arima Madurai" }}
+            >
+              Welcome to WhoDeySell (WDS)
             </Typography>
-            <Typography variant="p" sx={{ mx: "40px", fontSize: "1.2rem" }}>
-              This is Who Dey Sell (WDS) WDS is a people driven marketplace -
-              find stuff near you starting with knowing how much it costs
+            <Typography
+              variant="h5"
+              sx={{
+                fontFamily: "Raleway",
+                my: 1,
+              }}
+            >
+              WDS is a people driven marketplace - find stuff near you starting
+              with knowing how much it costs
             </Typography>
             <Link href="/add" passHref>
               <a>
@@ -95,7 +104,9 @@ export const Slide1 = () => {
                 px: 2,
               }}
             >
-              <Typography variant="h5">Welcome to Whodeysell (WDS)</Typography>
+              <Typography variant="h4" sx={{ fontFamily: "Arima Madurai" }}>
+                Welcome to Whodeysell (WDS)
+              </Typography>
               <Typography variant="p">
                 This is Who Dey Sell (WDS) WDS is a people driven marketplace -
                 find stuff near you starting with knowing how much it costs
@@ -136,7 +147,12 @@ export const Slide1 = () => {
 export const Slide2 = () => {
   const theme = useTheme();
   return (
-    <Container sx={{ px: { xs: 0 }, bgcolor: "transparent !important" }}>
+    <Container
+      sx={{
+        px: { xs: 0 },
+        bgcolor: "transparent !important",
+      }}
+    >
       <Box sx={{ width: "100%", height: "500px" }}>
         <Grid container spacing={1} alignItems="center" justifyContent="center">
           <Box
@@ -145,7 +161,7 @@ export const Slide2 = () => {
             xs={12}
             md={6}
             sx={{
-              textAlign: "center !important",
+              textAlign: "left !important",
               display: {
                 xs: "none",
                 md: "flex",
@@ -153,12 +169,17 @@ export const Slide2 = () => {
               },
             }}
           >
-            <Typography variant="h4" sx={{ my: 1 }}>
+            <Typography
+              variant="h4"
+              sx={{ my: 1, fontFamily: "Arima Madurai" }}
+            >
               Swap Your items
             </Typography>
             <Typography
-              variant="p"
-              sx={{ mx: "40px", fontSize: "1.2rem", my: 1 }}
+              variant="h5"
+              sx={{
+                fontFamily: "Raleway",
+              }}
             >
               With Whodeysell Swap-It, you can swap your items on the platform
               with money or other items as well
@@ -225,7 +246,9 @@ export const Slide2 = () => {
                 px: 2,
               }}
             >
-              <Typography variant="h5">Swap Your items</Typography>
+              <Typography variant="h4" sx={{ fontFamily: "Arima Madurai" }}>
+                Swap Your items
+              </Typography>
               <Typography variant="p">
                 With Whodeysell Swap-It, you can swap your items on the platform
                 with money or other items as well
