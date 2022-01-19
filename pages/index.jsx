@@ -30,7 +30,12 @@ export default function Index({ data, all, message }) {
   };
 
   React.useEffect(() => {
-    currCat === "all" ? router.replace("/") : router.replace(`?cat=${currCat}`);
+    const temp = { ...router.query };
+    temp.cat = currCat;
+    if (currCat === "all") {
+      delete temp.cat;
+    }
+    router.replace({ path: router.pathname, query: { ...temp } });
   }, [currCat]);
   return (
     <>
@@ -132,6 +137,7 @@ export async function getServerSideProps(context) {
       ? JSON.parse(context.req.cookies.wds_location).location
       : location;
     location = location === "all" ? "" : location;
+
     const res = await Axios.post(
       `https://buildbrothers.com/enenu/api/items?city=${location}&cat=${
         context.query.cat || ""

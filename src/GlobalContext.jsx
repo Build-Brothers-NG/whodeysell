@@ -65,10 +65,27 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
     }
   }, [user]);
 
-  useEffect(() => {
-    setCookie("wds_location", location);
-    router.replace(router.asPath);
-  }, [location]);
+  const changeLocation = (loc) => {
+    setCookie("wds_location", loc);
+    setLocation(loc);
+    const temp = { ...router.query };
+    temp.city = loc.location;
+    if (loc.location === "all") {
+      delete temp.city;
+    }
+    router.replace({ path: router.pathname, query: { ...temp } });
+  };
+
+  // useEffect(() => {
+  //   setCookie("wds_location", location);
+  //   const temp = { ...router.query };
+  //   temp.city = location.location;
+  //   if (location.location === "all") {
+  //     delete temp.city;
+  //   }
+  //   router.replace({ path: router.pathname, query: { ...temp } });
+  // }, [location]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -84,6 +101,7 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
         search,
         setSearch,
         makeSearch,
+        changeLocation,
       }}
     >
       {children}

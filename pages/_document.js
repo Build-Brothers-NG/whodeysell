@@ -71,7 +71,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           ></link>
           <link
-            href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
             rel="stylesheet"
           ></link>
           <link rel="manifest" href="/manifest.json" />

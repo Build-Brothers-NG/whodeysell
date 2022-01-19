@@ -12,7 +12,7 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { GlobalContext } from "../../../GlobalContext";
 const NavB = () => {
   const locations = ["all", "makurdi", "gboko", "otukpo"];
-  const { location, setLocation } = React.useContext(GlobalContext);
+  const { location, changeLocation } = React.useContext(GlobalContext);
   const theme = useTheme();
   return (
     <Box
@@ -32,7 +32,7 @@ const NavB = () => {
             value={location.location}
             variant="standard"
             color="white"
-            onChange={(e) => setLocation({ location: e.target.value })}
+            onChange={(e) => changeLocation({ location: e.target.value })}
           >
             {locations.map((local) => {
               return (

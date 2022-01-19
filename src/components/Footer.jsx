@@ -43,7 +43,7 @@ const Footer = () => {
                 </Stack>
               </Grid>
               <Grid item xs={12} md={4} sx={{ color: "white !important" }}>
-                <Typography variant="h5">We Are Social</Typography>
+                <Typography variant="h5">Useful Links</Typography>
                 <Stack>
                   <Link href="/swap">
                     <a>Swap-It</a>
@@ -101,7 +101,7 @@ const Footer = () => {
       </Box>
       <Box sx={{ py: 1 }}>
         <Container>
-          <Typography variant="h5">
+          <Typography variant="span">
             © {new Date().getFullYear()} Build Brothers NG
           </Typography>
         </Container>

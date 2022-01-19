@@ -191,6 +191,7 @@ export const Slide2 = () => {
                     theme.palette.mode === "dark" ? "outlined" : "contained"
                   }
                   color="primary"
+                  disableElevation
                   sx={{
                     borderRadius: "40px",
                     width: "fit-content",
