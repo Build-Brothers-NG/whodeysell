@@ -75,10 +75,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           ></link>
           <link
-            href="https://fonts.googleapis.com/css2?family=Dongle:wght@100&display=swap"
-            rel="stylesheet"
-          ></link>
-          <link
             href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap"
             rel="stylesheet"
           ></link>
