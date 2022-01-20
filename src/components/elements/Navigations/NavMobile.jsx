@@ -13,7 +13,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
-
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Zoom from "@mui/material/Zoom";
 import { Search, SearchIconWrapper, StyledInputBase } from "../SearchInput";
 import Link from "next/link";
 
@@ -45,6 +46,7 @@ const KeyboardArrowDownIcon = dynamic(() =>
 
 const NavMobile = () => {
   const [drawer, openDrawer] = React.useState(false);
+  const trigger = useScrollTrigger();
   const {
     user,
     setUser,
@@ -151,21 +153,23 @@ const NavMobile = () => {
           </Container>
         </AppBar>
         <NavB />
-        <SpeedDial
-          ariaLabel="SpeedDial basic example"
-          sx={{ position: "fixed", bottom: 16, right: 16 }}
-          icon={<AddIcon />}
-          direction="left"
-        >
-          {actions.map((action) => (
-            <SpeedDialAction
-              onClick={action.func}
-              key={action.text}
-              icon={action.icon}
-              tooltipTitle={action.text}
-            />
-          ))}
-        </SpeedDial>
+        <Zoom in={trigger}>
+          <SpeedDial
+            ariaLabel="SpeedDial basic example"
+            sx={{ position: "fixed", bottom: 16, right: 16 }}
+            icon={<AddIcon />}
+            direction="left"
+          >
+            {actions.map((action) => (
+              <SpeedDialAction
+                onClick={action.func}
+                key={action.text}
+                icon={action.icon}
+                tooltipTitle={action.text}
+              />
+            ))}
+          </SpeedDial>
+        </Zoom>
       </Box>
       <SwipeableDrawer
         anchor={"left"}

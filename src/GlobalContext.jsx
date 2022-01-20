@@ -16,6 +16,7 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
   const [loads, setLoads] = useState(false);
   const [theme, setTheme] = useState(getCookie("wds_theme"));
   const [search, setSearch] = useState("");
+  const [video, showVideo] = useState(false);
 
   useEffect(() => {
     setCookie("wds_theme", theme || "dark");
@@ -102,6 +103,8 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
         setSearch,
         makeSearch,
         changeLocation,
+        video,
+        showVideo,
       }}
     >
       {children}

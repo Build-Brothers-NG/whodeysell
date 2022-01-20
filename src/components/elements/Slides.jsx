@@ -5,13 +5,16 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material";
 
 import Link from "next/link";
+import { GlobalContext } from "../../GlobalContext";
 export const Slide1 = () => {
   const theme = useTheme();
+  const { video, showVideo } = React.useContext(GlobalContext);
   return (
-    <Container sx={{ px: { xs: 0 }, bgcolor: "transparent !important" }}>
+    <Container sx={{ px: { xs: 0, md: 5 }, bgcolor: "transparent !important" }}>
       <Box sx={{ width: "100%", height: "fit-content" }}>
         <Grid container spacing={1} alignItems="center" justifyContent="center">
           <Box
@@ -44,23 +47,39 @@ export const Slide1 = () => {
               WDS is a people driven marketplace - find stuff near you starting
               with knowing how much it costs
             </Typography>
-            <Link href="/add" passHref>
-              <a>
-                <Button
-                  disableElevation
-                  variant={
-                    theme.palette.mode === "dark" ? "outlined" : "contained"
-                  }
-                  sx={{
-                    borderRadius: "40px",
-                    width: "fit-content",
-                    m: "auto",
-                  }}
-                >
-                  Add An Item
-                </Button>
-              </a>
-            </Link>
+            <Stack direction="row" spacing={2}>
+              <Link href="/add" passHref>
+                <a>
+                  <Button
+                    disableElevation
+                    variant={
+                      theme.palette.mode === "dark" ? "outlined" : "contained"
+                    }
+                    sx={{
+                      borderRadius: "40px",
+                      width: "fit-content",
+                      m: "auto",
+                    }}
+                  >
+                    Add new item
+                  </Button>
+                </a>
+              </Link>
+              <Button
+                onClick={() => showVideo(true)}
+                disableElevation
+                variant={
+                  theme.palette.mode === "dark" ? "outlined" : "contained"
+                }
+                sx={{
+                  borderRadius: "40px",
+                  width: "fit-content",
+                  m: "auto",
+                }}
+              >
+                How It Works
+              </Button>
+            </Stack>
           </Box>
           <Box
             component={Grid}
@@ -111,21 +130,35 @@ export const Slide1 = () => {
                 This is Who Dey Sell (WDS) WDS is a people driven marketplace -
                 find stuff near you starting with knowing how much it costs
               </Typography>
-              <Link href="/add" passHref>
-                <a>
-                  <Button
-                    disableElevation
-                    variant="contained"
-                    sx={{
-                      borderRadius: "40px",
-                      width: "fit-content",
-                      m: "auto",
-                    }}
-                  >
-                    Add An Item
-                  </Button>
-                </a>
-              </Link>
+              <Stack direction="row" spacing={2}>
+                <Link href="/add" passHref>
+                  <a>
+                    <Button
+                      disableElevation
+                      variant="contained"
+                      sx={{
+                        borderRadius: "40px",
+                        width: "fit-content",
+                        m: "auto",
+                      }}
+                    >
+                      Add New Item
+                    </Button>
+                  </a>
+                </Link>
+                <Button
+                  onClick={() => showVideo(true)}
+                  disableElevation
+                  variant="contained"
+                  sx={{
+                    borderRadius: "40px",
+                    width: "fit-content",
+                    m: "auto",
+                  }}
+                >
+                  How It Works
+                </Button>
+              </Stack>
             </Box>
             <Box
               sx={{
@@ -149,7 +182,7 @@ export const Slide2 = () => {
   return (
     <Container
       sx={{
-        px: { xs: 0 },
+        px: { xs: 0, md: 5 },
         bgcolor: "transparent !important",
       }}
     >

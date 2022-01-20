@@ -9,17 +9,30 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Axios from "axios";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { Typography } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import ReactPlayer from "react-player/youtube";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/CloseSharp";
+import { GlobalContext } from "../src/GlobalContext";
 const Trending = dynamic(() => import("../src/components/Trending"));
 const Recent = dynamic(() => import("../src/components/Recent"));
 const Slider = dynamic(() => import("../src/components/Slider"));
 const All = dynamic(() => import("../src/components/All"));
 const ReloadIcon = dynamic(() => import("@mui/icons-material/Replay"));
-
-export default function Index({ data, all, message }) {
+import { setCookie } from "../src/useCookie";
+export default function Index({ data, all, message, firstTime }) {
   const router = useRouter();
   const [currCat, setCurrCat] = React.useState(router.query.cat || "all");
   const trigger = useScrollTrigger({ threshold: 500 });
+  const { video, showVideo } = React.useContext(GlobalContext);
+  const [open, setOpen] = React.useState(false);
   const goTop = (event) => {
     const anchor = document.querySelector("#nav-top");
     const anchor2 = document.querySelector("#nav-top2");
@@ -29,6 +42,14 @@ export default function Index({ data, all, message }) {
     }
   };
 
+  React.useEffect(() => {
+    if (firstTime === true) {
+      setTimeout(() => {
+        setOpen(true);
+        setCookie("wds_location", { location: "all" });
+      }, 2000);
+    }
+  }, []);
   React.useEffect(() => {
     const temp = { ...router.query };
     temp.cat = currCat;
@@ -126,6 +147,64 @@ export default function Index({ data, all, message }) {
           </Container>
         </>
       )}
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="draggable-dialog-title"
+      >
+        <DialogTitle id="draggable-dialog-title">
+          WhoDeySell - How It Works
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Typography variant="h6">
+              Hi, it seems this is your fist time visiting WhoDeySell, would you
+              like to watch a video on how WhoDeySell Works?
+            </Typography>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>No</Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              showVideo(true);
+            }}
+          >
+            Sure
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Backdrop open={video} sx={{ zIndex: 10000 }}>
+        <Container>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ReactPlayer
+              playing={video}
+              style={{ width: "fit-content" }}
+              controls={true}
+              url="https://www.youtube.com/watch?v=DkpEiobaPv8"
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <IconButton
+              sx={{ color: "white" }}
+              onClick={() => showVideo(false)}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </Container>
+      </Backdrop>
     </>
   );
 }
@@ -136,6 +215,7 @@ export async function getServerSideProps(context) {
     location = location
       ? JSON.parse(context.req.cookies.wds_location).location
       : location;
+    const firstTime = !location;
     location = location === "all" ? "" : location;
 
     const res = await Axios.post(
@@ -150,14 +230,25 @@ export async function getServerSideProps(context) {
     );
     // const only = all.data.items.filter((it) => it.category == "electronics");
     return {
-      props: { data: res.data, all: all.data, message: false },
+      props: {
+        data: res.data,
+        all: all.data,
+        message: false,
+        firstTime,
+      },
     };
   } catch (e) {
+    let location = context.req.cookies.wds_location || "";
+    location = location
+      ? JSON.parse(context.req.cookies.wds_location).location
+      : location;
+    const firstTime = !location;
     return {
       props: {
         data: { items: [], recent: [], cats: [] },
         all: { items: [] },
         message: true,
+        firstTime,
       },
     };
   }
