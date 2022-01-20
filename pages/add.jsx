@@ -262,7 +262,7 @@ const Add = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             <Select
               labelId="select-your-city"
               id="selec-city"
