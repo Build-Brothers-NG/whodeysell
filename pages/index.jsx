@@ -158,7 +158,7 @@ export default function Index({ data, all, message, firstTime }) {
         <DialogContent>
           <DialogContentText>
             <Typography variant="h6">
-              Hi, it seems this is your fist time visiting WhoDeySell, would you
+              Hi, it seems this is your first time visiting WhoDeySell, would you
               like to watch a video on how WhoDeySell Works?
             </Typography>
           </DialogContentText>
