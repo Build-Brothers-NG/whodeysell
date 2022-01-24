@@ -19,8 +19,8 @@ export const GlobalProvider = ({ children, loading, load, changeTheme }) => {
   const [video, showVideo] = useState(false);
 
   useEffect(() => {
-    setCookie("wds_theme", theme || "dark");
-    changeTheme(theme || "dark");
+    setCookie("wds_theme", theme || "light");
+    changeTheme(theme || "light");
   }, [theme]);
 
   const logOut = () => {
