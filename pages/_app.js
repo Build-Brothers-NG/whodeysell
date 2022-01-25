@@ -84,7 +84,7 @@ export default function MyApp(props) {
   };
   React.useEffect(() => {
     if (!getCookie("wds_theme")) {
-      setCookie("wds_theme", "dark");
+      setCookie("wds_theme", "light");
     }
   }, []);
 
@@ -94,7 +94,7 @@ export default function MyApp(props) {
   let theme = createTheme({
     palette: {
       mode,
-      ...myPalete[mode || "dark"],
+      ...myPalete[mode || "light"],
     },
   });
   theme = responsiveFontSizes(theme);
