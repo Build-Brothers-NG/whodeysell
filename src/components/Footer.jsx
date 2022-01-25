@@ -28,18 +28,37 @@ const Footer = () => {
                   We Are Social
                 </Typography>
                 <Stack direction="row" spacing={1} sx={{ ml: "-10px" }}>
-                  <IconButton>
-                    <FacebookIcon color="white" />
-                  </IconButton>
-                  <IconButton>
-                    <TwitterIcon color="white" />
-                  </IconButton>
-                  <IconButton>
-                    <InstagramIcon color="white" />
-                  </IconButton>
-                  <IconButton>
-                    <YoutubeIcon color="white" />
-                  </IconButton>
+                  <Link
+                    href="https://web.facebook.com/whodeysell.com.ng"
+                    passHref
+                  >
+                    <a target="_blank">
+                      <IconButton>
+                        <FacebookIcon color="white" />
+                      </IconButton>
+                    </a>
+                  </Link>
+                  <Link href="https://twitter.com/whodeysell_ng">
+                    <a target="_blank">
+                      <IconButton>
+                        <TwitterIcon color="white" />
+                      </IconButton>
+                    </a>
+                  </Link>
+                  <Link href="https://www.instagram.com/whodeysell_ng/">
+                    <a target="_blank">
+                      <IconButton>
+                        <InstagramIcon color="white" />
+                      </IconButton>
+                    </a>
+                  </Link>
+                  <Link href="https://www.youtube.com/channel/UCyf4rFGacCvCvz8cBjyrNdw">
+                    <a target="_blank">
+                      <IconButton>
+                        <YoutubeIcon color="white" />
+                      </IconButton>
+                    </a>
+                  </Link>
                 </Stack>
               </Grid>
               <Grid item xs={12} md={4} sx={{ color: "white !important" }}>

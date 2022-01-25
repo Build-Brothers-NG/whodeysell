@@ -294,7 +294,7 @@ const Add = () => {
           </Grid>
           {item.city.toLowerCase() === "others" && (
             <>
-              <Grid item sm={6}>
+              <Grid item xs={6}>
                 <Select
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
@@ -328,12 +328,16 @@ const Add = () => {
                   })}
                 </Select>
               </Grid>
-              <Grid item sm={6}>
+              <Grid item xs={6}>
                 <Autocomplete
                   disablePortal
                   freeSolo
                   autoSelect
-                  options={currState.state.locals.map((st) => st.name)}
+                  options={
+                    item.state
+                      ? currState.state.locals.map((st) => st.name)
+                      : []
+                  }
                   inputValue={item.otherCity}
                   onInputChange={(e, newInputValue) => {
                     setItem({ ...item, otherCity: newInputValue });
