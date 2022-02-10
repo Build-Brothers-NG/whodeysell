@@ -22,40 +22,33 @@ const Recent = ({ items }) => {
     }
   }, []);
   return (
-    <>
-      <Typography variant="h5" color="text.primary" sx={{ my: "5px" }}>
-        Recent Items
-      </Typography>
-      {items.length === 0 && (
-        <Typography
-          variant="h5"
-          color="text.primary"
-          sx={{ my: "5px", textAlign: "center" }}
-        >
-          No items from this location or category
-        </Typography>
-      )}
-      {show && (
-        <Box>
-          <Swiper
-            slidesPerView={md ? 4 : sm ? 3 : 2}
-            spaceBetween={sm ? 20 : 10}
-            navigation={true}
-            className="mySwiper"
-          >
-            {items.map((item, index) => {
-              return (
-                <SwiperSlide key={item.id}>
-                  <Box sx={{ my: "5px" }}>
-                    <Item item={item} />
-                  </Box>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </Box>
-      )}
-    </>
+    <Box sx={{ mb: 5 }}>
+      <Grid container spacing={{ xs: 1, sm: 2 }}>
+        <Grid item xs={12}>
+          <Typography variant="h5" color="text.primary">
+            Recent Items
+          </Typography>
+        </Grid>
+        {items.length === 0 && (
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              color="text.primary"
+              sx={{ my: "5px", textAlign: "center" }}
+            >
+              No items from this location or category
+            </Typography>
+          </Grid>
+        )}
+        {items.map((item, index) => {
+          return (
+            <Grid key={item.id} item xs={6} sm={4} md={3}>
+              <Item item={item} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Box>
   );
 };
 

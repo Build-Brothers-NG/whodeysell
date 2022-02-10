@@ -55,7 +55,9 @@ const NavDesk = () => {
     >
       <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
         <Toolbar>
-          <Container sx={{ display: "flex", alignItems: "center" }}>
+          <Container
+            sx={{ display: "flex", alignItems: "center", px: { xs: "5px" } }}
+          >
             <Box sx={{ flexGrow: 1 }}>
               <Link href="/" passHref>
                 <a>

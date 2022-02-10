@@ -23,7 +23,9 @@ const NavB = () => {
         py: "2px",
       }}
     >
-      <Container sx={{ display: "flex", alignItems: "center" }}>
+      <Container
+        sx={{ display: "flex", alignItems: "center", px: { xs: "5px" } }}
+      >
         <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
           <MapIcon sx={{ color: "white.main" }} />
           <Select_

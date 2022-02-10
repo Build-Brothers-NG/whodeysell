@@ -142,9 +142,22 @@ export default function Index({ data, all, message, firstTime }) {
           <Container sx={{ px: { xs: "5px" } }}>
             <Recent items={data.recent} />
           </Container>
-          <Container sx={{ px: { xs: "5px" } }}>
-            <All items={all.items} />
+          <Container>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                color="primary"
+                variant="contained"
+                disableElevation
+                sx={{ borderRadius: "50px", m: 5 }}
+                onClick={() => router.push("/items")}
+              >
+                See More
+              </Button>
+            </Box>
           </Container>
+          {/* <Container sx={{ px: { xs: "5px" } }}>
+            <All items={all} />
+          </Container> */}
         </>
       )}
       <Dialog
@@ -158,8 +171,8 @@ export default function Index({ data, all, message, firstTime }) {
         <DialogContent>
           <DialogContentText>
             <Typography variant="h6">
-              Hi, it seems this is your first time visiting WhoDeySell, would you
-              like to watch a video on how WhoDeySell Works?
+              Hi, it seems this is your first time visiting WhoDeySell, would
+              you like to watch a video on how WhoDeySell Works?
             </Typography>
           </DialogContentText>
         </DialogContent>
@@ -223,16 +236,16 @@ export async function getServerSideProps(context) {
         context.query.cat || ""
       }`
     );
-    const all = await Axios.get(
-      `https://buildbrothers.com/enenu/api/search?api=true&city=${location}&cat=${
-        context.query.cat || ""
-      }`
-    );
+    // const all = await Axios.get(
+    //   `https://buildbrothers.com/enenu/api/search?q=&api=true&city=${location}&cat=${
+    //     context.query.cat || ""
+    //   }&page=1`
+    // );
     // const only = all.data.items.filter((it) => it.category == "electronics");
     return {
       props: {
         data: res.data,
-        all: all.data,
+        // all: all.data.items.data,
         message: false,
         firstTime,
       },
