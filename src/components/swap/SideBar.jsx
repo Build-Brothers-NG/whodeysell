@@ -41,7 +41,10 @@ const SideBar = () => {
         },
       }}
     >
-      <Typography variant="h5" sx={{ textAlign: "center", mb: 2 }}>
+      <Typography
+        variant="h5"
+        sx={{ textAlign: { xs: "center", md: "left" }, mb: 2 }}
+      >
         Swap Your Items
       </Typography>
       <Stack
