@@ -28,7 +28,11 @@ const HowItWorks = () => {
             visit the Swap-It page. Then, click on the Add button from the side
             menu to add a new item.
           </Typography>
-          <Image src={"/howitworks.png"} width={500} height={400} />
+          <Box
+            component="img"
+            src={"/howitworks.png"}
+            sx={{ width: "100%", height: "fit-content" }}
+          />
           <Typography variant="p">
             WhoDeySell does not sell these items, we are simply a medium that
             people who have items to swap can use to reach their targeted
