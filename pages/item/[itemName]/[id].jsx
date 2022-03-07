@@ -37,6 +37,7 @@ const RedditIcon = dynamic(() => import("@mui/icons-material/Reddit"));
 const LinkIcon = dynamic(() => import("@mui/icons-material/Link"));
 const CloseIcon = dynamic(() => import("@mui/icons-material/CloseSharp"));
 const WhatsAppIcon = dynamic(() => import("@mui/icons-material/WhatsApp"));
+
 const Detail = (props) => {
   const router = useRouter();
   const { item, suggestions } = props.item;
@@ -172,9 +173,27 @@ const Detail = (props) => {
                     </Typography>
                   </a>
                 </Link>
-                <Typography variant="span" color="secondary">
-                  {time}
-                </Typography>
+                <Stack direction="row">
+                  <Typography variant="span" color="secondary">
+                    {time}
+                  </Typography>
+                  {user && user.id === item.userId ? (
+                    <>
+                      &#8239; &bull; &#8239;
+                      <Link
+                        href={`/edit/${CleanURL(item.itemName)}/${item.id}`}
+                      >
+                        <a>
+                          <Typography variant="span" color="secondary">
+                            Edit item
+                          </Typography>
+                        </a>
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </Stack>
               </Stack>
             </Grid>
             <Grid item xs={12} md={6}>

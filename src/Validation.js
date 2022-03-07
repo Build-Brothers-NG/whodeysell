@@ -26,16 +26,43 @@ export const ValidateReg = (data) => {
 
 export const ValidateItem = (data) => {
   const schema = Joi.object({
+    id: Joi.any(),
+    email: Joi.any(),
     name: Joi.string().required(),
-    amount: Joi.string().required(),
+    amount: Joi.any().required(),
     location: Joi.string().required(),
     city: Joi.string().required(),
     state: Joi.any(),
     otherCity: Joi.any(),
     description: Joi.string().min(5).required(),
-    qty: Joi.string().required(),
+    qty: Joi.any().required(),
     unit: Joi.string().required(),
     category: Joi.string().required(),
+    photo: Joi.any(),
+  });
+  return schema.validate(data);
+};
+
+export const ValidateItemUpdate = (data) => {
+  const schema = Joi.object({
+    itemName: Joi.string().required(),
+    item_price: Joi.any().required(),
+    purchase_location: Joi.string().required(),
+    city: Joi.string().required(),
+    state: Joi.any(),
+    otherCity: Joi.any(),
+    item_description: Joi.string().min(5).required(),
+    item_quantity: Joi.any().required(),
+    q_unit: Joi.string().required(),
+    category: Joi.string().required(),
+    category: Joi.string().required(),
+    id: Joi.any(),
+    name: Joi.any(),
+    userId: Joi.any(),
+    hasVoted: Joi.any(),
+    created_at: Joi.any(),
+    kudos: Joi.any(),
+    votes: Joi.any(),
     photo: Joi.any(),
   });
   return schema.validate(data);

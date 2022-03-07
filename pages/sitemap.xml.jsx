@@ -8,6 +8,10 @@ function generateSiteMap(items) {
         <priority>1.0</priority>
      </url>
      <url>
+       <loc>https://whodeysell.com.ng/items</loc>
+        <priority>1.0</priority>
+     </url>
+     <url>
        <loc>https://whodeysell.com.ng/add</loc>
        <priority>0.9</priority>
      </url>
